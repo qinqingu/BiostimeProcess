@@ -26,8 +26,10 @@ namespace BiostimeProcess.Pages
             {
                 ProcessForm processForm = ProcessFormService.GetByInstanceId(IncidentId);
                 FaArchiveTranfer faArchiveTranfer = FaProcessService.GetFaArchiveTranferByFormId(processForm.Id);
-                IList<Jieyue> jieyues = _faProcessService.GetJieyuelstByTranferId(faArchiveTranfer.Id);
-                _faProcessService.UpdateLiuchengzhuangtai(jieyues,LiuchengZhuangtaiEnum.YiShenpi);
+                IList<FaProcess> faProcesses = faArchiveTranfer.FaProcesses;
+                IList<Jieyue> jieyues = Master.GetJieyues(faProcesses);
+                _faProcessService.UpdateLiuchengzhuangtai(faArchiveTranfer, LiuchengZhuangtaiEnum.YiShenpi);
+                _faProcessService.SaveJieyueInfo(jieyues);
                 string desc = descText.Value;
                 Submit(desc);
             }

@@ -92,6 +92,7 @@
     </div>
     <asp:HiddenField ID="archiveId" Value="" runat="server" />
     <asp:HiddenField runat="server" ID="stepValue"/>
+    <asp:HiddenField ID="jieyueArchiveIds" Value="[]" runat="server" />
 </asp:Panel>
 
 <script language="javascript" type="text/javascript">
@@ -112,6 +113,7 @@
             cancelButton: '<%= btnCancel.ClientID %>',
             archiveId: '<%= archiveId.ClientID %>',
             stepValue: '<%= stepValue.ClientID %>',
+            jieyueArchiveIds: '<%= jieyueArchiveIds.ClientID %>',
         });
     });
 </script>

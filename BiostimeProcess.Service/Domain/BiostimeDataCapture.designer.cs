@@ -30,25 +30,28 @@ namespace BiostimeProcess.Service.Domain
 		
     #region 可扩展性方法定义
     partial void OnCreated();
-    partial void InsertFaArchive(FaArchive instance);
-    partial void UpdateFaArchive(FaArchive instance);
-    partial void DeleteFaArchive(FaArchive instance);
-    partial void InsertFaArchiveTranfer(FaArchiveTranfer instance);
-    partial void UpdateFaArchiveTranfer(FaArchiveTranfer instance);
-    partial void DeleteFaArchiveTranfer(FaArchiveTranfer instance);
+    partial void InsertFaAchriveHistory(FaAchriveHistory instance);
+    partial void UpdateFaAchriveHistory(FaAchriveHistory instance);
+    partial void DeleteFaAchriveHistory(FaAchriveHistory instance);
     partial void InsertProcessForm(ProcessForm instance);
     partial void UpdateProcessForm(ProcessForm instance);
     partial void DeleteProcessForm(ProcessForm instance);
+    partial void InsertFaArchiveTranfer(FaArchiveTranfer instance);
+    partial void UpdateFaArchiveTranfer(FaArchiveTranfer instance);
+    partial void DeleteFaArchiveTranfer(FaArchiveTranfer instance);
     partial void InsertFaProcess(FaProcess instance);
     partial void UpdateFaProcess(FaProcess instance);
     partial void DeleteFaProcess(FaProcess instance);
     partial void InsertJieyue(Jieyue instance);
     partial void UpdateJieyue(Jieyue instance);
     partial void DeleteJieyue(Jieyue instance);
+    partial void InsertFaArchive(FaArchive instance);
+    partial void UpdateFaArchive(FaArchive instance);
+    partial void DeleteFaArchive(FaArchive instance);
     #endregion
 		
 		public BiostimeDataCaptureDataContext() : 
-				base(global::BiostimeProcess.Service.Properties.Settings.Default.BiostimeDataCaptureConnectionString, mappingSource)
+				base(global::BiostimeProcess.Service.Properties.Settings.Default.BiostimeDataCaptureConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -77,19 +80,11 @@ namespace BiostimeProcess.Service.Domain
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<FaArchive> FaArchives
+		public System.Data.Linq.Table<FaAchriveHistory> FaAchriveHistories
 		{
 			get
 			{
-				return this.GetTable<FaArchive>();
-			}
-		}
-		
-		public System.Data.Linq.Table<FaArchiveTranfer> FaArchiveTranfers
-		{
-			get
-			{
-				return this.GetTable<FaArchiveTranfer>();
+				return this.GetTable<FaAchriveHistory>();
 			}
 		}
 		
@@ -98,6 +93,14 @@ namespace BiostimeProcess.Service.Domain
 			get
 			{
 				return this.GetTable<ProcessForm>();
+			}
+		}
+		
+		public System.Data.Linq.Table<FaArchiveTranfer> FaArchiveTranfers
+		{
+			get
+			{
+				return this.GetTable<FaArchiveTranfer>();
 			}
 		}
 		
@@ -116,15 +119,25 @@ namespace BiostimeProcess.Service.Domain
 				return this.GetTable<Jieyue>();
 			}
 		}
+		
+		public System.Data.Linq.Table<FaArchive> FaArchives
+		{
+			get
+			{
+				return this.GetTable<FaArchive>();
+			}
+		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FaArchive")]
-	public partial class FaArchive : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FaAchriveHistory")]
+	public partial class FaAchriveHistory : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private long _Id;
+		
+		private long _AchriveId;
 		
 		private string _Content;
 		
@@ -150,7 +163,7 @@ namespace BiostimeProcess.Service.Domain
 		
 		private System.DateTime _CreateTime;
 		
-		private System.DateTime _ModifiedTime;
+		private EntityRef<FaArchive> _FaArchive;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -158,6 +171,8 @@ namespace BiostimeProcess.Service.Domain
     partial void OnCreated();
     partial void OnIdChanging(long value);
     partial void OnIdChanged();
+    partial void OnAchriveIdChanging(long value);
+    partial void OnAchriveIdChanged();
     partial void OnContentChanging(string value);
     partial void OnContentChanged();
     partial void OnCompanyChanging(string value);
@@ -182,12 +197,11 @@ namespace BiostimeProcess.Service.Domain
     partial void OnRemarkChanged();
     partial void OnCreateTimeChanging(System.DateTime value);
     partial void OnCreateTimeChanged();
-    partial void OnModifiedTimeChanging(System.DateTime value);
-    partial void OnModifiedTimeChanged();
     #endregion
 		
-		public FaArchive()
+		public FaAchriveHistory()
 		{
+			this._FaArchive = default(EntityRef<FaArchive>);
 			OnCreated();
 		}
 		
@@ -207,6 +221,30 @@ namespace BiostimeProcess.Service.Domain
 					this._Id = value;
 					this.SendPropertyChanged("Id");
 					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AchriveId", DbType="BigInt NOT NULL")]
+		public long AchriveId
+		{
+			get
+			{
+				return this._AchriveId;
+			}
+			set
+			{
+				if ((this._AchriveId != value))
+				{
+					if (this._FaArchive.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAchriveIdChanging(value);
+					this.SendPropertyChanging();
+					this._AchriveId = value;
+					this.SendPropertyChanged("AchriveId");
+					this.OnAchriveIdChanged();
 				}
 			}
 		}
@@ -451,325 +489,36 @@ namespace BiostimeProcess.Service.Domain
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedTime", DbType="DateTime NOT NULL")]
-		public System.DateTime ModifiedTime
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchive_FaAchriveHistory", Storage="_FaArchive", ThisKey="AchriveId", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public FaArchive FaArchive
 		{
 			get
 			{
-				return this._ModifiedTime;
+				return this._FaArchive.Entity;
 			}
 			set
 			{
-				if ((this._ModifiedTime != value))
-				{
-					this.OnModifiedTimeChanging(value);
-					this.SendPropertyChanging();
-					this._ModifiedTime = value;
-					this.SendPropertyChanged("ModifiedTime");
-					this.OnModifiedTimeChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FaArchiveTranfer")]
-	public partial class FaArchiveTranfer : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _Id;
-		
-		private long _ProcessFormId;
-		
-		private int _ShenQingRenId;
-		
-		private string _ShenQingRenName;
-		
-		private int _ShenQingRenBumenId;
-		
-		private string _ShenQingRenBumenName;
-		
-		private System.DateTime _ShenQingRiqi;
-		
-		private string _JieyueYuanyin;
-		
-		private EntitySet<FaProcess> _FaProcesses;
-		
-		private EntitySet<Jieyue> _Jieyues;
-		
-		private EntityRef<ProcessForm> _ProcessForm;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(long value);
-    partial void OnIdChanged();
-    partial void OnProcessFormIdChanging(long value);
-    partial void OnProcessFormIdChanged();
-    partial void OnShenQingRenIdChanging(int value);
-    partial void OnShenQingRenIdChanged();
-    partial void OnShenQingRenNameChanging(string value);
-    partial void OnShenQingRenNameChanged();
-    partial void OnShenQingRenBumenIdChanging(int value);
-    partial void OnShenQingRenBumenIdChanged();
-    partial void OnShenQingRenBumenNameChanging(string value);
-    partial void OnShenQingRenBumenNameChanged();
-    partial void OnShenQingRiqiChanging(System.DateTime value);
-    partial void OnShenQingRiqiChanged();
-    partial void OnJieyueYuanyinChanging(string value);
-    partial void OnJieyueYuanyinChanged();
-    #endregion
-		
-		public FaArchiveTranfer()
-		{
-			this._FaProcesses = new EntitySet<FaProcess>(new Action<FaProcess>(this.attach_FaProcesses), new Action<FaProcess>(this.detach_FaProcesses));
-			this._Jieyues = new EntitySet<Jieyue>(new Action<Jieyue>(this.attach_Jieyues), new Action<Jieyue>(this.detach_Jieyues));
-			this._ProcessForm = default(EntityRef<ProcessForm>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProcessFormId", DbType="BigInt NOT NULL")]
-		public long ProcessFormId
-		{
-			get
-			{
-				return this._ProcessFormId;
-			}
-			set
-			{
-				if ((this._ProcessFormId != value))
-				{
-					if (this._ProcessForm.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnProcessFormIdChanging(value);
-					this.SendPropertyChanging();
-					this._ProcessFormId = value;
-					this.SendPropertyChanged("ProcessFormId");
-					this.OnProcessFormIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShenQingRenId", DbType="Int NOT NULL")]
-		public int ShenQingRenId
-		{
-			get
-			{
-				return this._ShenQingRenId;
-			}
-			set
-			{
-				if ((this._ShenQingRenId != value))
-				{
-					this.OnShenQingRenIdChanging(value);
-					this.SendPropertyChanging();
-					this._ShenQingRenId = value;
-					this.SendPropertyChanged("ShenQingRenId");
-					this.OnShenQingRenIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShenQingRenName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string ShenQingRenName
-		{
-			get
-			{
-				return this._ShenQingRenName;
-			}
-			set
-			{
-				if ((this._ShenQingRenName != value))
-				{
-					this.OnShenQingRenNameChanging(value);
-					this.SendPropertyChanging();
-					this._ShenQingRenName = value;
-					this.SendPropertyChanged("ShenQingRenName");
-					this.OnShenQingRenNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShenQingRenBumenId", DbType="Int NOT NULL")]
-		public int ShenQingRenBumenId
-		{
-			get
-			{
-				return this._ShenQingRenBumenId;
-			}
-			set
-			{
-				if ((this._ShenQingRenBumenId != value))
-				{
-					this.OnShenQingRenBumenIdChanging(value);
-					this.SendPropertyChanging();
-					this._ShenQingRenBumenId = value;
-					this.SendPropertyChanged("ShenQingRenBumenId");
-					this.OnShenQingRenBumenIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShenQingRenBumenName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string ShenQingRenBumenName
-		{
-			get
-			{
-				return this._ShenQingRenBumenName;
-			}
-			set
-			{
-				if ((this._ShenQingRenBumenName != value))
-				{
-					this.OnShenQingRenBumenNameChanging(value);
-					this.SendPropertyChanging();
-					this._ShenQingRenBumenName = value;
-					this.SendPropertyChanged("ShenQingRenBumenName");
-					this.OnShenQingRenBumenNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShenQingRiqi", DbType="DateTime NOT NULL")]
-		public System.DateTime ShenQingRiqi
-		{
-			get
-			{
-				return this._ShenQingRiqi;
-			}
-			set
-			{
-				if ((this._ShenQingRiqi != value))
-				{
-					this.OnShenQingRiqiChanging(value);
-					this.SendPropertyChanging();
-					this._ShenQingRiqi = value;
-					this.SendPropertyChanged("ShenQingRiqi");
-					this.OnShenQingRiqiChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JieyueYuanyin", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string JieyueYuanyin
-		{
-			get
-			{
-				return this._JieyueYuanyin;
-			}
-			set
-			{
-				if ((this._JieyueYuanyin != value))
-				{
-					this.OnJieyueYuanyinChanging(value);
-					this.SendPropertyChanging();
-					this._JieyueYuanyin = value;
-					this.SendPropertyChanged("JieyueYuanyin");
-					this.OnJieyueYuanyinChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchiveTranfer_FaProcess", Storage="_FaProcesses", ThisKey="Id", OtherKey="TransferId")]
-		public EntitySet<FaProcess> FaProcesses
-		{
-			get
-			{
-				return this._FaProcesses;
-			}
-			set
-			{
-				this._FaProcesses.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchiveTranfer_Jieyue", Storage="_Jieyues", ThisKey="Id", OtherKey="TranferId")]
-		public EntitySet<Jieyue> Jieyues
-		{
-			get
-			{
-				return this._Jieyues;
-			}
-			set
-			{
-				this._Jieyues.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ProcessForm_FaArchiveTranfer", Storage="_ProcessForm", ThisKey="ProcessFormId", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public ProcessForm ProcessForm
-		{
-			get
-			{
-				return this._ProcessForm.Entity;
-			}
-			set
-			{
-				ProcessForm previousValue = this._ProcessForm.Entity;
+				FaArchive previousValue = this._FaArchive.Entity;
 				if (((previousValue != value) 
-							|| (this._ProcessForm.HasLoadedOrAssignedValue == false)))
+							|| (this._FaArchive.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._ProcessForm.Entity = null;
-						previousValue.FaArchiveTranfers.Remove(this);
+						this._FaArchive.Entity = null;
+						previousValue.FaAchriveHistories.Remove(this);
 					}
-					this._ProcessForm.Entity = value;
+					this._FaArchive.Entity = value;
 					if ((value != null))
 					{
-						value.FaArchiveTranfers.Add(this);
-						this._ProcessFormId = value.Id;
+						value.FaAchriveHistories.Add(this);
+						this._AchriveId = value.Id;
 					}
 					else
 					{
-						this._ProcessFormId = default(long);
+						this._AchriveId = default(long);
 					}
-					this.SendPropertyChanged("ProcessForm");
+					this.SendPropertyChanged("FaArchive");
 				}
 			}
 		}
@@ -792,30 +541,6 @@ namespace BiostimeProcess.Service.Domain
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_FaProcesses(FaProcess entity)
-		{
-			this.SendPropertyChanging();
-			entity.FaArchiveTranfer = this;
-		}
-		
-		private void detach_FaProcesses(FaProcess entity)
-		{
-			this.SendPropertyChanging();
-			entity.FaArchiveTranfer = null;
-		}
-		
-		private void attach_Jieyues(Jieyue entity)
-		{
-			this.SendPropertyChanging();
-			entity.FaArchiveTranfer = this;
-		}
-		
-		private void detach_Jieyues(Jieyue entity)
-		{
-			this.SendPropertyChanging();
-			entity.FaArchiveTranfer = null;
 		}
 	}
 	
@@ -1101,6 +826,329 @@ namespace BiostimeProcess.Service.Domain
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FaArchiveTranfer")]
+	public partial class FaArchiveTranfer : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _Id;
+		
+		private long _ProcessFormId;
+		
+		private int _ShenQingRenId;
+		
+		private string _ShenQingRenName;
+		
+		private int _ShenQingRenBumenId;
+		
+		private string _ShenQingRenBumenName;
+		
+		private System.DateTime _ShenQingRiqi;
+		
+		private string _JieyueYuanyin;
+		
+		private System.Nullable<int> _LiuchengZhuangtai;
+		
+		private EntitySet<FaProcess> _FaProcesses;
+		
+		private EntityRef<ProcessForm> _ProcessForm;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(long value);
+    partial void OnIdChanged();
+    partial void OnProcessFormIdChanging(long value);
+    partial void OnProcessFormIdChanged();
+    partial void OnShenQingRenIdChanging(int value);
+    partial void OnShenQingRenIdChanged();
+    partial void OnShenQingRenNameChanging(string value);
+    partial void OnShenQingRenNameChanged();
+    partial void OnShenQingRenBumenIdChanging(int value);
+    partial void OnShenQingRenBumenIdChanged();
+    partial void OnShenQingRenBumenNameChanging(string value);
+    partial void OnShenQingRenBumenNameChanged();
+    partial void OnShenQingRiqiChanging(System.DateTime value);
+    partial void OnShenQingRiqiChanged();
+    partial void OnJieyueYuanyinChanging(string value);
+    partial void OnJieyueYuanyinChanged();
+    partial void OnLiuchengZhuangtaiChanging(System.Nullable<int> value);
+    partial void OnLiuchengZhuangtaiChanged();
+    #endregion
+		
+		public FaArchiveTranfer()
+		{
+			this._FaProcesses = new EntitySet<FaProcess>(new Action<FaProcess>(this.attach_FaProcesses), new Action<FaProcess>(this.detach_FaProcesses));
+			this._ProcessForm = default(EntityRef<ProcessForm>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProcessFormId", DbType="BigInt NOT NULL")]
+		public long ProcessFormId
+		{
+			get
+			{
+				return this._ProcessFormId;
+			}
+			set
+			{
+				if ((this._ProcessFormId != value))
+				{
+					if (this._ProcessForm.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProcessFormIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProcessFormId = value;
+					this.SendPropertyChanged("ProcessFormId");
+					this.OnProcessFormIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShenQingRenId", DbType="Int NOT NULL")]
+		public int ShenQingRenId
+		{
+			get
+			{
+				return this._ShenQingRenId;
+			}
+			set
+			{
+				if ((this._ShenQingRenId != value))
+				{
+					this.OnShenQingRenIdChanging(value);
+					this.SendPropertyChanging();
+					this._ShenQingRenId = value;
+					this.SendPropertyChanged("ShenQingRenId");
+					this.OnShenQingRenIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShenQingRenName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string ShenQingRenName
+		{
+			get
+			{
+				return this._ShenQingRenName;
+			}
+			set
+			{
+				if ((this._ShenQingRenName != value))
+				{
+					this.OnShenQingRenNameChanging(value);
+					this.SendPropertyChanging();
+					this._ShenQingRenName = value;
+					this.SendPropertyChanged("ShenQingRenName");
+					this.OnShenQingRenNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShenQingRenBumenId", DbType="Int NOT NULL")]
+		public int ShenQingRenBumenId
+		{
+			get
+			{
+				return this._ShenQingRenBumenId;
+			}
+			set
+			{
+				if ((this._ShenQingRenBumenId != value))
+				{
+					this.OnShenQingRenBumenIdChanging(value);
+					this.SendPropertyChanging();
+					this._ShenQingRenBumenId = value;
+					this.SendPropertyChanged("ShenQingRenBumenId");
+					this.OnShenQingRenBumenIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShenQingRenBumenName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string ShenQingRenBumenName
+		{
+			get
+			{
+				return this._ShenQingRenBumenName;
+			}
+			set
+			{
+				if ((this._ShenQingRenBumenName != value))
+				{
+					this.OnShenQingRenBumenNameChanging(value);
+					this.SendPropertyChanging();
+					this._ShenQingRenBumenName = value;
+					this.SendPropertyChanged("ShenQingRenBumenName");
+					this.OnShenQingRenBumenNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShenQingRiqi", DbType="DateTime NOT NULL")]
+		public System.DateTime ShenQingRiqi
+		{
+			get
+			{
+				return this._ShenQingRiqi;
+			}
+			set
+			{
+				if ((this._ShenQingRiqi != value))
+				{
+					this.OnShenQingRiqiChanging(value);
+					this.SendPropertyChanging();
+					this._ShenQingRiqi = value;
+					this.SendPropertyChanged("ShenQingRiqi");
+					this.OnShenQingRiqiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JieyueYuanyin", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string JieyueYuanyin
+		{
+			get
+			{
+				return this._JieyueYuanyin;
+			}
+			set
+			{
+				if ((this._JieyueYuanyin != value))
+				{
+					this.OnJieyueYuanyinChanging(value);
+					this.SendPropertyChanging();
+					this._JieyueYuanyin = value;
+					this.SendPropertyChanged("JieyueYuanyin");
+					this.OnJieyueYuanyinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LiuchengZhuangtai", DbType="Int")]
+		public System.Nullable<int> LiuchengZhuangtai
+		{
+			get
+			{
+				return this._LiuchengZhuangtai;
+			}
+			set
+			{
+				if ((this._LiuchengZhuangtai != value))
+				{
+					this.OnLiuchengZhuangtaiChanging(value);
+					this.SendPropertyChanging();
+					this._LiuchengZhuangtai = value;
+					this.SendPropertyChanged("LiuchengZhuangtai");
+					this.OnLiuchengZhuangtaiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchiveTranfer_FaProcess", Storage="_FaProcesses", ThisKey="Id", OtherKey="TransferId")]
+		public EntitySet<FaProcess> FaProcesses
+		{
+			get
+			{
+				return this._FaProcesses;
+			}
+			set
+			{
+				this._FaProcesses.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ProcessForm_FaArchiveTranfer", Storage="_ProcessForm", ThisKey="ProcessFormId", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public ProcessForm ProcessForm
+		{
+			get
+			{
+				return this._ProcessForm.Entity;
+			}
+			set
+			{
+				ProcessForm previousValue = this._ProcessForm.Entity;
+				if (((previousValue != value) 
+							|| (this._ProcessForm.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ProcessForm.Entity = null;
+						previousValue.FaArchiveTranfers.Remove(this);
+					}
+					this._ProcessForm.Entity = value;
+					if ((value != null))
+					{
+						value.FaArchiveTranfers.Add(this);
+						this._ProcessFormId = value.Id;
+					}
+					else
+					{
+						this._ProcessFormId = default(long);
+					}
+					this.SendPropertyChanged("ProcessForm");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_FaProcesses(FaProcess entity)
+		{
+			this.SendPropertyChanging();
+			entity.FaArchiveTranfer = this;
+		}
+		
+		private void detach_FaProcesses(FaProcess entity)
+		{
+			this.SendPropertyChanging();
+			entity.FaArchiveTranfer = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FaProcess")]
 	public partial class FaProcess : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1115,33 +1163,17 @@ namespace BiostimeProcess.Service.Domain
 		
 		private int _Xuhao;
 		
-		private string _Company;
-		
-		private int _Year;
-		
-		private int _Month;
-		
-		private string _VoucherWord;
-		
-		private int _VoucherNumber;
-		
-		private string _VoucherNo;
-		
-		private string _VoucherNos;
-		
-		private string _Path;
-		
-		private string _CabinetNo;
-		
 		private int _JieyueTianshu;
 		
 		private string _Remark;
 		
-		private System.Nullable<System.DateTime> _CreateTime;
+		private System.DateTime _CreateTime;
 		
-		private System.Nullable<System.DateTime> _ModifiedTime;
+		private System.DateTime _ModifiedTime;
 		
 		private EntityRef<FaArchiveTranfer> _FaArchiveTranfer;
+		
+		private EntityRef<FaArchive> _FaArchive;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -1155,37 +1187,20 @@ namespace BiostimeProcess.Service.Domain
     partial void OnArchiveIdChanged();
     partial void OnXuhaoChanging(int value);
     partial void OnXuhaoChanged();
-    partial void OnCompanyChanging(string value);
-    partial void OnCompanyChanged();
-    partial void OnYearChanging(int value);
-    partial void OnYearChanged();
-    partial void OnMonthChanging(int value);
-    partial void OnMonthChanged();
-    partial void OnVoucherWordChanging(string value);
-    partial void OnVoucherWordChanged();
-    partial void OnVoucherNumberChanging(int value);
-    partial void OnVoucherNumberChanged();
-    partial void OnVoucherNoChanging(string value);
-    partial void OnVoucherNoChanged();
-    partial void OnVoucherNosChanging(string value);
-    partial void OnVoucherNosChanged();
-    partial void OnPathChanging(string value);
-    partial void OnPathChanged();
-    partial void OnCabinetNoChanging(string value);
-    partial void OnCabinetNoChanged();
     partial void OnJieyueTianshuChanging(int value);
     partial void OnJieyueTianshuChanged();
     partial void OnRemarkChanging(string value);
     partial void OnRemarkChanged();
-    partial void OnCreateTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreateTimeChanging(System.DateTime value);
     partial void OnCreateTimeChanged();
-    partial void OnModifiedTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnModifiedTimeChanging(System.DateTime value);
     partial void OnModifiedTimeChanged();
     #endregion
 		
 		public FaProcess()
 		{
 			this._FaArchiveTranfer = default(EntityRef<FaArchiveTranfer>);
+			this._FaArchive = default(EntityRef<FaArchive>);
 			OnCreated();
 		}
 		
@@ -1244,6 +1259,10 @@ namespace BiostimeProcess.Service.Domain
 			{
 				if ((this._ArchiveId != value))
 				{
+					if (this._FaArchive.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnArchiveIdChanging(value);
 					this.SendPropertyChanging();
 					this._ArchiveId = value;
@@ -1269,6 +1288,592 @@ namespace BiostimeProcess.Service.Domain
 					this._Xuhao = value;
 					this.SendPropertyChanged("Xuhao");
 					this.OnXuhaoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JieyueTianshu", DbType="Int NOT NULL")]
+		public int JieyueTianshu
+		{
+			get
+			{
+				return this._JieyueTianshu;
+			}
+			set
+			{
+				if ((this._JieyueTianshu != value))
+				{
+					this.OnJieyueTianshuChanging(value);
+					this.SendPropertyChanging();
+					this._JieyueTianshu = value;
+					this.SendPropertyChanged("JieyueTianshu");
+					this.OnJieyueTianshuChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(100)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateTime", DbType="DateTime NOT NULL")]
+		public System.DateTime CreateTime
+		{
+			get
+			{
+				return this._CreateTime;
+			}
+			set
+			{
+				if ((this._CreateTime != value))
+				{
+					this.OnCreateTimeChanging(value);
+					this.SendPropertyChanging();
+					this._CreateTime = value;
+					this.SendPropertyChanged("CreateTime");
+					this.OnCreateTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedTime", DbType="DateTime NOT NULL")]
+		public System.DateTime ModifiedTime
+		{
+			get
+			{
+				return this._ModifiedTime;
+			}
+			set
+			{
+				if ((this._ModifiedTime != value))
+				{
+					this.OnModifiedTimeChanging(value);
+					this.SendPropertyChanging();
+					this._ModifiedTime = value;
+					this.SendPropertyChanged("ModifiedTime");
+					this.OnModifiedTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchiveTranfer_FaProcess", Storage="_FaArchiveTranfer", ThisKey="TransferId", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public FaArchiveTranfer FaArchiveTranfer
+		{
+			get
+			{
+				return this._FaArchiveTranfer.Entity;
+			}
+			set
+			{
+				FaArchiveTranfer previousValue = this._FaArchiveTranfer.Entity;
+				if (((previousValue != value) 
+							|| (this._FaArchiveTranfer.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._FaArchiveTranfer.Entity = null;
+						previousValue.FaProcesses.Remove(this);
+					}
+					this._FaArchiveTranfer.Entity = value;
+					if ((value != null))
+					{
+						value.FaProcesses.Add(this);
+						this._TransferId = value.Id;
+					}
+					else
+					{
+						this._TransferId = default(long);
+					}
+					this.SendPropertyChanged("FaArchiveTranfer");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchive_FaProcess", Storage="_FaArchive", ThisKey="ArchiveId", OtherKey="Id", IsForeignKey=true)]
+		public FaArchive FaArchive
+		{
+			get
+			{
+				return this._FaArchive.Entity;
+			}
+			set
+			{
+				FaArchive previousValue = this._FaArchive.Entity;
+				if (((previousValue != value) 
+							|| (this._FaArchive.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._FaArchive.Entity = null;
+						previousValue.FaProcesses.Remove(this);
+					}
+					this._FaArchive.Entity = value;
+					if ((value != null))
+					{
+						value.FaProcesses.Add(this);
+						this._ArchiveId = value.Id;
+					}
+					else
+					{
+						this._ArchiveId = default(long);
+					}
+					this.SendPropertyChanged("FaArchive");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Jieyue")]
+	public partial class Jieyue : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _Id;
+		
+		private long _TranferId;
+		
+		private long _ArchiveId;
+		
+		private int _JieyueTianshu;
+		
+		private System.Nullable<System.DateTime> _JieyueShijian;
+		
+		private System.Nullable<System.DateTime> _GuihuanShijian;
+		
+		private System.Nullable<int> _Jieyuezhuangtai;
+		
+		private System.Nullable<int> _Guihuanzhuangtai;
+		
+		private string _Remark;
+		
+		private EntityRef<FaArchive> _FaArchive;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(long value);
+    partial void OnIdChanged();
+    partial void OnTranferIdChanging(long value);
+    partial void OnTranferIdChanged();
+    partial void OnArchiveIdChanging(long value);
+    partial void OnArchiveIdChanged();
+    partial void OnJieyueTianshuChanging(int value);
+    partial void OnJieyueTianshuChanged();
+    partial void OnJieyueShijianChanging(System.Nullable<System.DateTime> value);
+    partial void OnJieyueShijianChanged();
+    partial void OnGuihuanShijianChanging(System.Nullable<System.DateTime> value);
+    partial void OnGuihuanShijianChanged();
+    partial void OnJieyuezhuangtaiChanging(System.Nullable<int> value);
+    partial void OnJieyuezhuangtaiChanged();
+    partial void OnGuihuanzhuangtaiChanging(System.Nullable<int> value);
+    partial void OnGuihuanzhuangtaiChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public Jieyue()
+		{
+			this._FaArchive = default(EntityRef<FaArchive>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TranferId", DbType="BigInt NOT NULL")]
+		public long TranferId
+		{
+			get
+			{
+				return this._TranferId;
+			}
+			set
+			{
+				if ((this._TranferId != value))
+				{
+					this.OnTranferIdChanging(value);
+					this.SendPropertyChanging();
+					this._TranferId = value;
+					this.SendPropertyChanged("TranferId");
+					this.OnTranferIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArchiveId", DbType="BigInt NOT NULL")]
+		public long ArchiveId
+		{
+			get
+			{
+				return this._ArchiveId;
+			}
+			set
+			{
+				if ((this._ArchiveId != value))
+				{
+					if (this._FaArchive.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnArchiveIdChanging(value);
+					this.SendPropertyChanging();
+					this._ArchiveId = value;
+					this.SendPropertyChanged("ArchiveId");
+					this.OnArchiveIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JieyueTianshu", DbType="Int NOT NULL")]
+		public int JieyueTianshu
+		{
+			get
+			{
+				return this._JieyueTianshu;
+			}
+			set
+			{
+				if ((this._JieyueTianshu != value))
+				{
+					this.OnJieyueTianshuChanging(value);
+					this.SendPropertyChanging();
+					this._JieyueTianshu = value;
+					this.SendPropertyChanged("JieyueTianshu");
+					this.OnJieyueTianshuChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JieyueShijian", DbType="DateTime")]
+		public System.Nullable<System.DateTime> JieyueShijian
+		{
+			get
+			{
+				return this._JieyueShijian;
+			}
+			set
+			{
+				if ((this._JieyueShijian != value))
+				{
+					this.OnJieyueShijianChanging(value);
+					this.SendPropertyChanging();
+					this._JieyueShijian = value;
+					this.SendPropertyChanged("JieyueShijian");
+					this.OnJieyueShijianChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GuihuanShijian", DbType="DateTime")]
+		public System.Nullable<System.DateTime> GuihuanShijian
+		{
+			get
+			{
+				return this._GuihuanShijian;
+			}
+			set
+			{
+				if ((this._GuihuanShijian != value))
+				{
+					this.OnGuihuanShijianChanging(value);
+					this.SendPropertyChanging();
+					this._GuihuanShijian = value;
+					this.SendPropertyChanged("GuihuanShijian");
+					this.OnGuihuanShijianChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Jieyuezhuangtai", DbType="Int")]
+		public System.Nullable<int> Jieyuezhuangtai
+		{
+			get
+			{
+				return this._Jieyuezhuangtai;
+			}
+			set
+			{
+				if ((this._Jieyuezhuangtai != value))
+				{
+					this.OnJieyuezhuangtaiChanging(value);
+					this.SendPropertyChanging();
+					this._Jieyuezhuangtai = value;
+					this.SendPropertyChanged("Jieyuezhuangtai");
+					this.OnJieyuezhuangtaiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Guihuanzhuangtai", DbType="Int")]
+		public System.Nullable<int> Guihuanzhuangtai
+		{
+			get
+			{
+				return this._Guihuanzhuangtai;
+			}
+			set
+			{
+				if ((this._Guihuanzhuangtai != value))
+				{
+					this.OnGuihuanzhuangtaiChanging(value);
+					this.SendPropertyChanging();
+					this._Guihuanzhuangtai = value;
+					this.SendPropertyChanged("Guihuanzhuangtai");
+					this.OnGuihuanzhuangtaiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(50)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchive_Jieyue", Storage="_FaArchive", ThisKey="ArchiveId", OtherKey="Id", IsForeignKey=true)]
+		public FaArchive FaArchive
+		{
+			get
+			{
+				return this._FaArchive.Entity;
+			}
+			set
+			{
+				FaArchive previousValue = this._FaArchive.Entity;
+				if (((previousValue != value) 
+							|| (this._FaArchive.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._FaArchive.Entity = null;
+						previousValue.Jieyues.Remove(this);
+					}
+					this._FaArchive.Entity = value;
+					if ((value != null))
+					{
+						value.Jieyues.Add(this);
+						this._ArchiveId = value.Id;
+					}
+					else
+					{
+						this._ArchiveId = default(long);
+					}
+					this.SendPropertyChanged("FaArchive");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FaArchive")]
+	public partial class FaArchive : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _Id;
+		
+		private string _Content;
+		
+		private string _Company;
+		
+		private int _Year;
+		
+		private int _Month;
+		
+		private string _VoucherWord;
+		
+		private int _VoucherNumber;
+		
+		private string _VoucherNo;
+		
+		private string _VoucherNos;
+		
+		private string _Path;
+		
+		private string _CabinetNo;
+		
+		private string _Remark;
+		
+		private System.DateTime _CreateTime;
+		
+		private System.DateTime _ModifiedTime;
+		
+		private EntitySet<FaAchriveHistory> _FaAchriveHistories;
+		
+		private EntitySet<FaProcess> _FaProcesses;
+		
+		private EntitySet<Jieyue> _Jieyues;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(long value);
+    partial void OnIdChanged();
+    partial void OnContentChanging(string value);
+    partial void OnContentChanged();
+    partial void OnCompanyChanging(string value);
+    partial void OnCompanyChanged();
+    partial void OnYearChanging(int value);
+    partial void OnYearChanged();
+    partial void OnMonthChanging(int value);
+    partial void OnMonthChanged();
+    partial void OnVoucherWordChanging(string value);
+    partial void OnVoucherWordChanged();
+    partial void OnVoucherNumberChanging(int value);
+    partial void OnVoucherNumberChanged();
+    partial void OnVoucherNoChanging(string value);
+    partial void OnVoucherNoChanged();
+    partial void OnVoucherNosChanging(string value);
+    partial void OnVoucherNosChanged();
+    partial void OnPathChanging(string value);
+    partial void OnPathChanged();
+    partial void OnCabinetNoChanging(string value);
+    partial void OnCabinetNoChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    partial void OnCreateTimeChanging(System.DateTime value);
+    partial void OnCreateTimeChanged();
+    partial void OnModifiedTimeChanging(System.DateTime value);
+    partial void OnModifiedTimeChanged();
+    #endregion
+		
+		public FaArchive()
+		{
+			this._FaAchriveHistories = new EntitySet<FaAchriveHistory>(new Action<FaAchriveHistory>(this.attach_FaAchriveHistories), new Action<FaAchriveHistory>(this.detach_FaAchriveHistories));
+			this._FaProcesses = new EntitySet<FaProcess>(new Action<FaProcess>(this.attach_FaProcesses), new Action<FaProcess>(this.detach_FaProcesses));
+			this._Jieyues = new EntitySet<Jieyue>(new Action<Jieyue>(this.attach_Jieyues), new Action<Jieyue>(this.detach_Jieyues));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Content", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string Content
+		{
+			get
+			{
+				return this._Content;
+			}
+			set
+			{
+				if ((this._Content != value))
+				{
+					this.OnContentChanging(value);
+					this.SendPropertyChanging();
+					this._Content = value;
+					this.SendPropertyChanged("Content");
+					this.OnContentChanged();
 				}
 			}
 		}
@@ -1453,27 +2058,7 @@ namespace BiostimeProcess.Service.Domain
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JieyueTianshu", DbType="Int NOT NULL")]
-		public int JieyueTianshu
-		{
-			get
-			{
-				return this._JieyueTianshu;
-			}
-			set
-			{
-				if ((this._JieyueTianshu != value))
-				{
-					this.OnJieyueTianshuChanging(value);
-					this.SendPropertyChanging();
-					this._JieyueTianshu = value;
-					this.SendPropertyChanged("JieyueTianshu");
-					this.OnJieyueTianshuChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
 		public string Remark
 		{
 			get
@@ -1493,8 +2078,8 @@ namespace BiostimeProcess.Service.Domain
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateTime", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreateTime
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateTime", DbType="DateTime NOT NULL")]
+		public System.DateTime CreateTime
 		{
 			get
 			{
@@ -1513,8 +2098,8 @@ namespace BiostimeProcess.Service.Domain
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedTime", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ModifiedTime
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedTime", DbType="DateTime NOT NULL")]
+		public System.DateTime ModifiedTime
 		{
 			get
 			{
@@ -1533,37 +2118,42 @@ namespace BiostimeProcess.Service.Domain
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchiveTranfer_FaProcess", Storage="_FaArchiveTranfer", ThisKey="TransferId", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public FaArchiveTranfer FaArchiveTranfer
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchive_FaAchriveHistory", Storage="_FaAchriveHistories", ThisKey="Id", OtherKey="AchriveId")]
+		public EntitySet<FaAchriveHistory> FaAchriveHistories
 		{
 			get
 			{
-				return this._FaArchiveTranfer.Entity;
+				return this._FaAchriveHistories;
 			}
 			set
 			{
-				FaArchiveTranfer previousValue = this._FaArchiveTranfer.Entity;
-				if (((previousValue != value) 
-							|| (this._FaArchiveTranfer.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._FaArchiveTranfer.Entity = null;
-						previousValue.FaProcesses.Remove(this);
-					}
-					this._FaArchiveTranfer.Entity = value;
-					if ((value != null))
-					{
-						value.FaProcesses.Add(this);
-						this._TransferId = value.Id;
-					}
-					else
-					{
-						this._TransferId = default(long);
-					}
-					this.SendPropertyChanged("FaArchiveTranfer");
-				}
+				this._FaAchriveHistories.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchive_FaProcess", Storage="_FaProcesses", ThisKey="Id", OtherKey="ArchiveId")]
+		public EntitySet<FaProcess> FaProcesses
+		{
+			get
+			{
+				return this._FaProcesses;
+			}
+			set
+			{
+				this._FaProcesses.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchive_Jieyue", Storage="_Jieyues", ThisKey="Id", OtherKey="ArchiveId")]
+		public EntitySet<Jieyue> Jieyues
+		{
+			get
+			{
+				return this._Jieyues;
+			}
+			set
+			{
+				this._Jieyues.Assign(value);
 			}
 		}
 		
@@ -1586,324 +2176,41 @@ namespace BiostimeProcess.Service.Domain
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Jieyue")]
-	public partial class Jieyue : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _Id;
-		
-		private long _TranferId;
-		
-		private long _ArchiveId;
-		
-		private int _JieyueTianshu;
-		
-		private System.Nullable<System.DateTime> _JieyueShijian;
-		
-		private System.Nullable<System.DateTime> _GuihuanShijian;
-		
-		private int _Liuchengzhuangtai;
-		
-		private System.Nullable<int> _Jieyuezhuangtai;
-		
-		private System.Nullable<int> _Guihuanzhuangtai;
-		
-		private string _Remark;
-		
-		private EntityRef<FaArchiveTranfer> _FaArchiveTranfer;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(long value);
-    partial void OnIdChanged();
-    partial void OnTranferIdChanging(long value);
-    partial void OnTranferIdChanged();
-    partial void OnArchiveIdChanging(long value);
-    partial void OnArchiveIdChanged();
-    partial void OnJieyueTianshuChanging(int value);
-    partial void OnJieyueTianshuChanged();
-    partial void OnJieyueShijianChanging(System.Nullable<System.DateTime> value);
-    partial void OnJieyueShijianChanged();
-    partial void OnGuihuanShijianChanging(System.Nullable<System.DateTime> value);
-    partial void OnGuihuanShijianChanged();
-    partial void OnLiuchengzhuangtaiChanging(int value);
-    partial void OnLiuchengzhuangtaiChanged();
-    partial void OnJieyuezhuangtaiChanging(System.Nullable<int> value);
-    partial void OnJieyuezhuangtaiChanged();
-    partial void OnGuihuanzhuangtaiChanging(System.Nullable<int> value);
-    partial void OnGuihuanzhuangtaiChanged();
-    partial void OnRemarkChanging(string value);
-    partial void OnRemarkChanged();
-    #endregion
-		
-		public Jieyue()
+		private void attach_FaAchriveHistories(FaAchriveHistory entity)
 		{
-			this._FaArchiveTranfer = default(EntityRef<FaArchiveTranfer>);
-			OnCreated();
+			this.SendPropertyChanging();
+			entity.FaArchive = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long Id
+		private void detach_FaAchriveHistories(FaAchriveHistory entity)
 		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
+			this.SendPropertyChanging();
+			entity.FaArchive = null;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TranferId", DbType="BigInt NOT NULL")]
-		public long TranferId
+		private void attach_FaProcesses(FaProcess entity)
 		{
-			get
-			{
-				return this._TranferId;
-			}
-			set
-			{
-				if ((this._TranferId != value))
-				{
-					if (this._FaArchiveTranfer.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnTranferIdChanging(value);
-					this.SendPropertyChanging();
-					this._TranferId = value;
-					this.SendPropertyChanged("TranferId");
-					this.OnTranferIdChanged();
-				}
-			}
+			this.SendPropertyChanging();
+			entity.FaArchive = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArchiveId", DbType="BigInt NOT NULL")]
-		public long ArchiveId
+		private void detach_FaProcesses(FaProcess entity)
 		{
-			get
-			{
-				return this._ArchiveId;
-			}
-			set
-			{
-				if ((this._ArchiveId != value))
-				{
-					this.OnArchiveIdChanging(value);
-					this.SendPropertyChanging();
-					this._ArchiveId = value;
-					this.SendPropertyChanged("ArchiveId");
-					this.OnArchiveIdChanged();
-				}
-			}
+			this.SendPropertyChanging();
+			entity.FaArchive = null;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JieyueTianshu", DbType="Int NOT NULL")]
-		public int JieyueTianshu
+		private void attach_Jieyues(Jieyue entity)
 		{
-			get
-			{
-				return this._JieyueTianshu;
-			}
-			set
-			{
-				if ((this._JieyueTianshu != value))
-				{
-					this.OnJieyueTianshuChanging(value);
-					this.SendPropertyChanging();
-					this._JieyueTianshu = value;
-					this.SendPropertyChanged("JieyueTianshu");
-					this.OnJieyueTianshuChanged();
-				}
-			}
+			this.SendPropertyChanging();
+			entity.FaArchive = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JieyueShijian", DbType="DateTime")]
-		public System.Nullable<System.DateTime> JieyueShijian
+		private void detach_Jieyues(Jieyue entity)
 		{
-			get
-			{
-				return this._JieyueShijian;
-			}
-			set
-			{
-				if ((this._JieyueShijian != value))
-				{
-					this.OnJieyueShijianChanging(value);
-					this.SendPropertyChanging();
-					this._JieyueShijian = value;
-					this.SendPropertyChanged("JieyueShijian");
-					this.OnJieyueShijianChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GuihuanShijian", DbType="DateTime")]
-		public System.Nullable<System.DateTime> GuihuanShijian
-		{
-			get
-			{
-				return this._GuihuanShijian;
-			}
-			set
-			{
-				if ((this._GuihuanShijian != value))
-				{
-					this.OnGuihuanShijianChanging(value);
-					this.SendPropertyChanging();
-					this._GuihuanShijian = value;
-					this.SendPropertyChanged("GuihuanShijian");
-					this.OnGuihuanShijianChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Liuchengzhuangtai", DbType="Int NOT NULL")]
-		public int Liuchengzhuangtai
-		{
-			get
-			{
-				return this._Liuchengzhuangtai;
-			}
-			set
-			{
-				if ((this._Liuchengzhuangtai != value))
-				{
-					this.OnLiuchengzhuangtaiChanging(value);
-					this.SendPropertyChanging();
-					this._Liuchengzhuangtai = value;
-					this.SendPropertyChanged("Liuchengzhuangtai");
-					this.OnLiuchengzhuangtaiChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Jieyuezhuangtai", DbType="Int")]
-		public System.Nullable<int> Jieyuezhuangtai
-		{
-			get
-			{
-				return this._Jieyuezhuangtai;
-			}
-			set
-			{
-				if ((this._Jieyuezhuangtai != value))
-				{
-					this.OnJieyuezhuangtaiChanging(value);
-					this.SendPropertyChanging();
-					this._Jieyuezhuangtai = value;
-					this.SendPropertyChanged("Jieyuezhuangtai");
-					this.OnJieyuezhuangtaiChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Guihuanzhuangtai", DbType="Int")]
-		public System.Nullable<int> Guihuanzhuangtai
-		{
-			get
-			{
-				return this._Guihuanzhuangtai;
-			}
-			set
-			{
-				if ((this._Guihuanzhuangtai != value))
-				{
-					this.OnGuihuanzhuangtaiChanging(value);
-					this.SendPropertyChanging();
-					this._Guihuanzhuangtai = value;
-					this.SendPropertyChanged("Guihuanzhuangtai");
-					this.OnGuihuanzhuangtaiChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(50)")]
-		public string Remark
-		{
-			get
-			{
-				return this._Remark;
-			}
-			set
-			{
-				if ((this._Remark != value))
-				{
-					this.OnRemarkChanging(value);
-					this.SendPropertyChanging();
-					this._Remark = value;
-					this.SendPropertyChanged("Remark");
-					this.OnRemarkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchiveTranfer_Jieyue", Storage="_FaArchiveTranfer", ThisKey="TranferId", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public FaArchiveTranfer FaArchiveTranfer
-		{
-			get
-			{
-				return this._FaArchiveTranfer.Entity;
-			}
-			set
-			{
-				FaArchiveTranfer previousValue = this._FaArchiveTranfer.Entity;
-				if (((previousValue != value) 
-							|| (this._FaArchiveTranfer.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._FaArchiveTranfer.Entity = null;
-						previousValue.Jieyues.Remove(this);
-					}
-					this._FaArchiveTranfer.Entity = value;
-					if ((value != null))
-					{
-						value.Jieyues.Add(this);
-						this._TranferId = value.Id;
-					}
-					else
-					{
-						this._TranferId = default(long);
-					}
-					this.SendPropertyChanged("FaArchiveTranfer");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
+			this.SendPropertyChanging();
+			entity.FaArchive = null;
 		}
 	}
 }

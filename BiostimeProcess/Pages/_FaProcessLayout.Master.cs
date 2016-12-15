@@ -129,8 +129,8 @@ namespace BiostimeProcess.Pages
                 ShenQingrenDeptName.Text = EDoc2Helper.GetCurrentUserDeptName();
                 ShenQingrenDeptId.Value = EDoc2Helper.GetCurrentUserDeptId().ToString();
             }
-            IList<long> archiveIds = faProcessService.GetAllJieyueArchiveIds();
-            jieyueArchiveIds.Value = faArchiveInfoJsonService.GetGetAllJieyueArchiveIdsJson(archiveIds);
+            //IList<long> archiveIds = faProcessService.GetAllJieyueArchiveIds();
+            //jieyueArchiveIds.Value = faArchiveInfoJsonService.GetGetAllJieyueArchiveIdsJson(archiveIds);
             //FaArchiveDetailsControl.
         }
 
@@ -159,7 +159,8 @@ namespace BiostimeProcess.Pages
                 ShenQingRiqi = DateTime.Parse(ShenQingRiqi.Text),
                 ShenQingRenId = Convert.ToInt32(ShenQingrenId.Value),
                 ShenQingRenBumenId = Convert.ToInt32(ShenQingrenDeptId.Value),
-                JieyueYuanyin = JieyueYuanyin.InnerText
+                JieyueYuanyin = JieyueYuanyin.InnerText,
+                LiuchengZhuangtai = (int)LiuchengZhuangtaiEnum.Shenpizhong
             };
             return entity;
         }
@@ -176,13 +177,10 @@ namespace BiostimeProcess.Pages
             ProcessForm processForm = ProcessFormService.GetByInstanceId(IncidentId);
             FaArchiveTranfer faArchiveTranferentitynewEntity = GetFaArchiveTranfer();
             IList<FaProcess> newFaprocess = GetFaProcess();
-            IList<Jieyue> newJieyues = GetJieyues(newFaprocess);
             FaArchiveTranfer faArchiveTranferentity = faProcessService.GetFaArchiveTranferByFormId(processForm.Id);
             faArchiveTranferentity.JieyueYuanyin = faArchiveTranferentitynewEntity.JieyueYuanyin;
             faArchiveTranferentity.FaProcesses.Clear();
             faArchiveTranferentity.FaProcesses.AddRange(newFaprocess);
-            faArchiveTranferentity.Jieyues.Clear();
-            faArchiveTranferentity.Jieyues.AddRange(newJieyues);
             faProcessService.SaveFaArchiveTranfer(faArchiveTranferentity);
             return processForm;
         }
@@ -203,7 +201,6 @@ namespace BiostimeProcess.Pages
             jieyue.TranferId = faProcess.TransferId;
             jieyue.ArchiveId = faProcess.ArchiveId;
             jieyue.JieyueTianshu = faProcess.JieyueTianshu;
-            jieyue.Liuchengzhuangtai = (int)LiuchengZhuangtaiEnum.Shenpizhong;
             jieyue.Jieyuezhuangtai = (int)JieyueZhuangtaiEnum.WeiJieyue;
             jieyue.Guihuanzhuangtai = (int)GuihuanZhuangtaiEnum.WeiGuihuan;
             return jieyue;

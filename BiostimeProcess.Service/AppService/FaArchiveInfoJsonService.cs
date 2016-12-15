@@ -17,14 +17,6 @@ namespace BiostimeProcess.Service.AppService
                 {
                     ArchiveId = jsonArchiveInfo.ArchiveId,
                     Xuhao = jsonArchiveInfo.No,
-                    Company = jsonArchiveInfo.Company,
-                    Year = jsonArchiveInfo.Year,
-                    Month = jsonArchiveInfo.Month,
-                    VoucherWord = jsonArchiveInfo.VoucherWord,
-                    VoucherNumber = jsonArchiveInfo.VoucherNumber,
-                    VoucherNo = jsonArchiveInfo.VoucherNo,
-                    Path = jsonArchiveInfo.Path,
-                    CabinetNo = jsonArchiveInfo.CabinetNo,
                     JieyueTianshu = jsonArchiveInfo.Day,
                     CreateTime = DateTime.Now,
                     ModifiedTime = DateTime.Now
@@ -48,14 +40,14 @@ namespace BiostimeProcess.Service.AppService
                 {
                     No = archiveInfo.Xuhao,
                     ArchiveId = archiveInfo.ArchiveId,
-                    Year = archiveInfo.Year,
-                    Month = archiveInfo.Month,
-                    Company = archiveInfo.Company,
-                    VoucherWord = archiveInfo.VoucherWord,
-                    VoucherNumber = archiveInfo.VoucherNumber,
-                    VoucherNo = archiveInfo.VoucherNo,
-                    Path = archiveInfo.Path,
-                    CabinetNo = archiveInfo.CabinetNo,
+                    Year = archiveInfo.FaArchive.Year,
+                    Month = archiveInfo.FaArchive.Month,
+                    Company = archiveInfo.FaArchive.Company,
+                    VoucherWord = archiveInfo.FaArchive.VoucherWord,
+                    VoucherNumber = archiveInfo.FaArchive.VoucherNumber,
+                    VoucherNo = archiveInfo.FaArchive.VoucherNo,
+                    Path = archiveInfo.FaArchive.Path,
+                    CabinetNo = archiveInfo.FaArchive.CabinetNo,
                     Day = archiveInfo.JieyueTianshu
                 });
             }

@@ -206,7 +206,7 @@
         editFileInfoButtonName = names.editFileInfoButton;
         removeFileInfoButtonName = names.removeFileInfoButton;
         archiveInfos = $.parseJSON($faArchiveInfoData.val());
-        archiveoutInfos = $.parseJSON($jieyueArchiveIds.val());
+        //archiveoutInfos = $.parseJSON($jieyueArchiveIds.val());
         $faGridHasNoData.rules("add", { required: true, messages: { required: errorMessages.formDataRequired } });
         $jieyueYuanyin.rules("add", { required: true, messages: { required: errorMessages.jieyueYuanyinRequired } });
         webui.addRequiredMark($jieyueYuanyin);

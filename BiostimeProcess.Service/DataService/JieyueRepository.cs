@@ -20,37 +20,39 @@ namespace BiostimeProcess.Service.DataService
             return DataContext.Jieyues.FirstOrDefault(t => t.Id == id);
         }
 
-        public void ModifyLiuchengzhuangtaiByFileId(IList<Jieyue> jieyues, LiuchengZhuangtaiEnum zhuangtai)
-        {
-            foreach (var entity in jieyues)
-            {
-                Jieyue jieyue = FindJieyueById(entity.Id);
-                jieyue.Liuchengzhuangtai = (int)zhuangtai;
-                if (zhuangtai == LiuchengZhuangtaiEnum.YiShenpi)
-                {
-                    jieyue.JieyueShijian = DateTime.Now;
-                }
-                DataContext.SubmitChanges();
-            }
+        //public void ModifyLiuchengzhuangtaiByFileId(IList<Jieyue> jieyues, LiuchengZhuangtaiEnum zhuangtai)
+        //{
+        //    foreach (var entity in jieyues)
+        //    {
+        //        Jieyue jieyue = FindJieyueById(entity.Id);
+        //        if (zhuangtai == LiuchengZhuangtaiEnum.YiShenpi)
+        //        {
+        //            jieyue.JieyueShijian = DateTime.Now;
+        //        }
+        //        DataContext.SubmitChanges();
+        //    }
            
-        }
+        //}
 
-        public IList<long> FindAllJieyueArchiveIds()
-        {
-            IList<Jieyue> jieyues = DataContext.Jieyues.Where(
-                item =>
-                item.Liuchengzhuangtai != (int) LiuchengZhuangtaiEnum.YiChexiao ||
-                item.Guihuanzhuangtai == (int) GuihuanZhuangtaiEnum.YiGuihuan).ToList();
-            return jieyues.Select(item => item.ArchiveId).ToList(); ;
-        }
+        //public IList<long> FindAllJieyueArchiveIds()
+        //{
+        //    IList<Jieyue> jieyues = DataContext.Jieyues.Where(
+        //        item =>
+        //        item.Liuchengzhuangtai != (int) LiuchengZhuangtaiEnum.YiChexiao ||
+        //        item.Guihuanzhuangtai == (int) GuihuanZhuangtaiEnum.YiGuihuan).ToList();
+        //    return jieyues.Select(item => item.ArchiveId).ToList(); ;
+        //}
 
-        public void SaveLendInfo(Jieyue entity)
+        public void SaveJieyueInfo(IList<Jieyue> entities)
         {
             try
             {
-                if (entity.Id == 0)
+                foreach (var entity in entities)
                 {
-                    DataContext.Jieyues.InsertOnSubmit(entity);
+                    if (entity.Id == 0)
+                    {
+                        DataContext.Jieyues.InsertOnSubmit(entity);
+                    }
                 }
                 DataContext.SubmitChanges();
             }

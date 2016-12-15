@@ -40,11 +40,9 @@ namespace BiostimeProcess.Pages
                 string incidentId = IncidentId;
                 FaArchiveTranfer faArchiveTranfer = Master.GetFaArchiveTranfer();
                 IList<FaProcess> faProcesses = Master.GetFaProcess();
-                IList<Jieyue> jieyues = Master.GetJieyues(faProcesses);
                 ProcessForm processForm = ProcessFormService.GetNewProcessForm(ProcessId, incidentId);
                 processForm.FaArchiveTranfers.Add(faArchiveTranfer);
                 faArchiveTranfer.FaProcesses.AddRange(faProcesses);
-                faArchiveTranfer.Jieyues.AddRange(jieyues);
                 ProcessFormService.Save(processForm);
                 StartFa(ProcessId, incidentId, null);
             }
@@ -75,8 +73,7 @@ namespace BiostimeProcess.Pages
             {
                 ProcessForm processForm = ProcessFormService.GetByInstanceId(IncidentId);
                 FaArchiveTranfer faArchiveTranfer = FaProcessService.GetFaArchiveTranferByFormId(processForm.Id);
-                IList<Jieyue> jieyues = _faProcessService.GetJieyuelstByTranferId(faArchiveTranfer.Id);
-                _faProcessService.UpdateLiuchengzhuangtai(jieyues, LiuchengZhuangtaiEnum.YiChexiao);
+                _faProcessService.UpdateLiuchengzhuangtai(faArchiveTranfer, LiuchengZhuangtaiEnum.YiChexiao);
                 AbortIncident();
             }
             catch (Exception ex)

@@ -36,6 +36,7 @@ namespace BiostimeProcess.Pages
                 string remark = Request["remark"];
                 var faArchiveService = new FaArchiveService();
                 FaArchive archive = faArchiveService.GetFaArchiveByRemark(remark);
+                //FaArchive archive = faArchiveService.GetFaArchiveByRemark(remark);
                 resultModel.data = archive;
             }
             catch (Exception ex)

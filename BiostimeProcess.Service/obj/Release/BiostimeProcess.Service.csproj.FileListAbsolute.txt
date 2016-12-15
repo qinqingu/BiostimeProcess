@@ -10,6 +10,6 @@ E:\项目开发\BiostimeProcess\BiostimeProcess.Service\bin\Release\Macrowing.DM
 E:\项目开发\BiostimeProcess\BiostimeProcess.Service\bin\Release\Macrowing.EDoc2.Organization.dll
 E:\项目开发\BiostimeProcess\BiostimeProcess.Service\bin\Release\Newtonsoft.Json.dll
 E:\项目开发\BiostimeProcess\BiostimeProcess.Service\bin\Release\Newtonsoft.Json.pdb
-E:\项目开发\BiostimeProcess\BiostimeProcess.Service\obj\Release\BiostimeProcess.Service.csprojResolveAssemblyReference.cache
 E:\项目开发\BiostimeProcess\BiostimeProcess.Service\obj\Release\BiostimeProcess.Service.dll
 E:\项目开发\BiostimeProcess\BiostimeProcess.Service\obj\Release\BiostimeProcess.Service.pdb
+E:\项目开发\BiostimeProcess\BiostimeProcess.Service\obj\Release\BiostimeProcess.Service.csprojResolveAssemblyReference.cache

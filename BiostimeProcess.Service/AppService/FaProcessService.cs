@@ -27,53 +27,29 @@ namespace BiostimeProcess.Service.AppService
             return _faArchiveTranferRepository.FindFaArchiveTranferByFormId(processFormId);
         }
 
+        public void SaveFaArchiveTranfer(FaArchiveTranfer faArchiveTranfer)
+        {
+            _faArchiveTranferRepository.SaveFaArchiveTranfer(faArchiveTranfer);
+        }
+
         public List<FaProcess> GetFaProcesslstByTranferId(long tranferId)
         {
             return _faProcessRepository.FindFaProcesslstByTranferId(tranferId);
+        }
+
+        public void UpdateLiuchengzhuangtai(FaArchiveTranfer faArchiveTranfer, LiuchengZhuangtaiEnum zhuangtai)
+        {
+            _faArchiveTranferRepository.ModifyLiuchengzhuangtaiByFileId(faArchiveTranfer, zhuangtai);
         }
 
         public IList<Jieyue> GetJieyuelstByTranferId(long tranferId)
         {
             return _jieyueRepository.FindJieyuelstByTranferId(tranferId);
         }
- 
-        public void UpdateLiuchengzhuangtai(IList<Jieyue> jieyues,LiuchengZhuangtaiEnum zhuangtai)
-        {
-            _jieyueRepository.ModifyLiuchengzhuangtaiByFileId(jieyues, zhuangtai);
-        }
 
-        public void SaveFaArchiveTranfer(FaArchiveTranfer entity)
+        public void SaveJieyueInfo(IList<Jieyue> entities)
         {
-            _faArchiveTranferRepository.SaveFaArchiveTranfer(entity);
-        }
-
-        public IList<long> GetAllJieyueArchiveIds()
-        {
-            return _jieyueRepository.FindAllJieyueArchiveIds();
-        }
-
-        //public void SaveFaProcess(List<FaProcess> faprocesses)
-        //{
-        //    _faProcessRepository.SaveFaProcess(faprocesses);
-        //}
-
-        public void SaveLendInfo(List<FaProcess> faProcesses )
-        {
-            foreach (var faProcess in faProcesses)
-            {
-                string remark = faProcess.Remark ?? string.Empty;
-                var lendInfo = new Jieyue
-                {
-                    ArchiveId = faProcess.ArchiveId,
-                    TranferId = faProcess.Id,
-                    JieyueTianshu = faProcess.JieyueTianshu,
-                    Liuchengzhuangtai = (int)LiuchengZhuangtaiEnum.Shenpizhong,
-                    Jieyuezhuangtai = null,
-                    Guihuanzhuangtai = null,
-                    Remark = remark
-                };
-                _jieyueRepository.SaveLendInfo(lendInfo);
-            }
+            _jieyueRepository.SaveJieyueInfo(entities);
         }
     }
 }
