@@ -201,6 +201,7 @@ namespace BiostimeProcess.Pages
             jieyue.TranferId = faProcess.TransferId;
             jieyue.ArchiveId = faProcess.ArchiveId;
             jieyue.JieyueTianshu = faProcess.JieyueTianshu;
+            jieyue.JieyueShijian = DateTime.Now;
             jieyue.Jieyuezhuangtai = (int)JieyueZhuangtaiEnum.WeiJieyue;
             jieyue.Guihuanzhuangtai = (int)GuihuanZhuangtaiEnum.WeiGuihuan;
             return jieyue;

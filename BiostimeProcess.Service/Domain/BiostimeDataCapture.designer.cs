@@ -42,12 +42,12 @@ namespace BiostimeProcess.Service.Domain
     partial void InsertFaProcess(FaProcess instance);
     partial void UpdateFaProcess(FaProcess instance);
     partial void DeleteFaProcess(FaProcess instance);
-    partial void InsertJieyue(Jieyue instance);
-    partial void UpdateJieyue(Jieyue instance);
-    partial void DeleteJieyue(Jieyue instance);
     partial void InsertFaArchive(FaArchive instance);
     partial void UpdateFaArchive(FaArchive instance);
     partial void DeleteFaArchive(FaArchive instance);
+    partial void InsertJieyue(Jieyue instance);
+    partial void UpdateJieyue(Jieyue instance);
+    partial void DeleteJieyue(Jieyue instance);
     #endregion
 		
 		public BiostimeDataCaptureDataContext() : 
@@ -112,19 +112,19 @@ namespace BiostimeProcess.Service.Domain
 			}
 		}
 		
-		public System.Data.Linq.Table<Jieyue> Jieyues
-		{
-			get
-			{
-				return this.GetTable<Jieyue>();
-			}
-		}
-		
 		public System.Data.Linq.Table<FaArchive> FaArchives
 		{
 			get
 			{
 				return this.GetTable<FaArchive>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Jieyue> Jieyues
+		{
+			get
+			{
+				return this.GetTable<Jieyue>();
 			}
 		}
 	}
@@ -1461,301 +1461,6 @@ namespace BiostimeProcess.Service.Domain
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Jieyue")]
-	public partial class Jieyue : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _Id;
-		
-		private long _TranferId;
-		
-		private long _ArchiveId;
-		
-		private int _JieyueTianshu;
-		
-		private System.Nullable<System.DateTime> _JieyueShijian;
-		
-		private System.Nullable<System.DateTime> _GuihuanShijian;
-		
-		private System.Nullable<int> _Jieyuezhuangtai;
-		
-		private System.Nullable<int> _Guihuanzhuangtai;
-		
-		private string _Remark;
-		
-		private EntityRef<FaArchive> _FaArchive;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(long value);
-    partial void OnIdChanged();
-    partial void OnTranferIdChanging(long value);
-    partial void OnTranferIdChanged();
-    partial void OnArchiveIdChanging(long value);
-    partial void OnArchiveIdChanged();
-    partial void OnJieyueTianshuChanging(int value);
-    partial void OnJieyueTianshuChanged();
-    partial void OnJieyueShijianChanging(System.Nullable<System.DateTime> value);
-    partial void OnJieyueShijianChanged();
-    partial void OnGuihuanShijianChanging(System.Nullable<System.DateTime> value);
-    partial void OnGuihuanShijianChanged();
-    partial void OnJieyuezhuangtaiChanging(System.Nullable<int> value);
-    partial void OnJieyuezhuangtaiChanged();
-    partial void OnGuihuanzhuangtaiChanging(System.Nullable<int> value);
-    partial void OnGuihuanzhuangtaiChanged();
-    partial void OnRemarkChanging(string value);
-    partial void OnRemarkChanged();
-    #endregion
-		
-		public Jieyue()
-		{
-			this._FaArchive = default(EntityRef<FaArchive>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TranferId", DbType="BigInt NOT NULL")]
-		public long TranferId
-		{
-			get
-			{
-				return this._TranferId;
-			}
-			set
-			{
-				if ((this._TranferId != value))
-				{
-					this.OnTranferIdChanging(value);
-					this.SendPropertyChanging();
-					this._TranferId = value;
-					this.SendPropertyChanged("TranferId");
-					this.OnTranferIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArchiveId", DbType="BigInt NOT NULL")]
-		public long ArchiveId
-		{
-			get
-			{
-				return this._ArchiveId;
-			}
-			set
-			{
-				if ((this._ArchiveId != value))
-				{
-					if (this._FaArchive.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnArchiveIdChanging(value);
-					this.SendPropertyChanging();
-					this._ArchiveId = value;
-					this.SendPropertyChanged("ArchiveId");
-					this.OnArchiveIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JieyueTianshu", DbType="Int NOT NULL")]
-		public int JieyueTianshu
-		{
-			get
-			{
-				return this._JieyueTianshu;
-			}
-			set
-			{
-				if ((this._JieyueTianshu != value))
-				{
-					this.OnJieyueTianshuChanging(value);
-					this.SendPropertyChanging();
-					this._JieyueTianshu = value;
-					this.SendPropertyChanged("JieyueTianshu");
-					this.OnJieyueTianshuChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JieyueShijian", DbType="DateTime")]
-		public System.Nullable<System.DateTime> JieyueShijian
-		{
-			get
-			{
-				return this._JieyueShijian;
-			}
-			set
-			{
-				if ((this._JieyueShijian != value))
-				{
-					this.OnJieyueShijianChanging(value);
-					this.SendPropertyChanging();
-					this._JieyueShijian = value;
-					this.SendPropertyChanged("JieyueShijian");
-					this.OnJieyueShijianChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GuihuanShijian", DbType="DateTime")]
-		public System.Nullable<System.DateTime> GuihuanShijian
-		{
-			get
-			{
-				return this._GuihuanShijian;
-			}
-			set
-			{
-				if ((this._GuihuanShijian != value))
-				{
-					this.OnGuihuanShijianChanging(value);
-					this.SendPropertyChanging();
-					this._GuihuanShijian = value;
-					this.SendPropertyChanged("GuihuanShijian");
-					this.OnGuihuanShijianChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Jieyuezhuangtai", DbType="Int")]
-		public System.Nullable<int> Jieyuezhuangtai
-		{
-			get
-			{
-				return this._Jieyuezhuangtai;
-			}
-			set
-			{
-				if ((this._Jieyuezhuangtai != value))
-				{
-					this.OnJieyuezhuangtaiChanging(value);
-					this.SendPropertyChanging();
-					this._Jieyuezhuangtai = value;
-					this.SendPropertyChanged("Jieyuezhuangtai");
-					this.OnJieyuezhuangtaiChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Guihuanzhuangtai", DbType="Int")]
-		public System.Nullable<int> Guihuanzhuangtai
-		{
-			get
-			{
-				return this._Guihuanzhuangtai;
-			}
-			set
-			{
-				if ((this._Guihuanzhuangtai != value))
-				{
-					this.OnGuihuanzhuangtaiChanging(value);
-					this.SendPropertyChanging();
-					this._Guihuanzhuangtai = value;
-					this.SendPropertyChanged("Guihuanzhuangtai");
-					this.OnGuihuanzhuangtaiChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(50)")]
-		public string Remark
-		{
-			get
-			{
-				return this._Remark;
-			}
-			set
-			{
-				if ((this._Remark != value))
-				{
-					this.OnRemarkChanging(value);
-					this.SendPropertyChanging();
-					this._Remark = value;
-					this.SendPropertyChanged("Remark");
-					this.OnRemarkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchive_Jieyue", Storage="_FaArchive", ThisKey="ArchiveId", OtherKey="Id", IsForeignKey=true)]
-		public FaArchive FaArchive
-		{
-			get
-			{
-				return this._FaArchive.Entity;
-			}
-			set
-			{
-				FaArchive previousValue = this._FaArchive.Entity;
-				if (((previousValue != value) 
-							|| (this._FaArchive.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._FaArchive.Entity = null;
-						previousValue.Jieyues.Remove(this);
-					}
-					this._FaArchive.Entity = value;
-					if ((value != null))
-					{
-						value.Jieyues.Add(this);
-						this._ArchiveId = value.Id;
-					}
-					else
-					{
-						this._ArchiveId = default(long);
-					}
-					this.SendPropertyChanged("FaArchive");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FaArchive")]
 	public partial class FaArchive : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2211,6 +1916,301 @@ namespace BiostimeProcess.Service.Domain
 		{
 			this.SendPropertyChanging();
 			entity.FaArchive = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Jieyue")]
+	public partial class Jieyue : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _Id;
+		
+		private long _TranferId;
+		
+		private long _ArchiveId;
+		
+		private int _JieyueTianshu;
+		
+		private System.DateTime _JieyueShijian;
+		
+		private System.Nullable<System.DateTime> _GuihuanShijian;
+		
+		private System.Nullable<int> _Jieyuezhuangtai;
+		
+		private System.Nullable<int> _Guihuanzhuangtai;
+		
+		private string _Remark;
+		
+		private EntityRef<FaArchive> _FaArchive;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(long value);
+    partial void OnIdChanged();
+    partial void OnTranferIdChanging(long value);
+    partial void OnTranferIdChanged();
+    partial void OnArchiveIdChanging(long value);
+    partial void OnArchiveIdChanged();
+    partial void OnJieyueTianshuChanging(int value);
+    partial void OnJieyueTianshuChanged();
+    partial void OnJieyueShijianChanging(System.DateTime value);
+    partial void OnJieyueShijianChanged();
+    partial void OnGuihuanShijianChanging(System.Nullable<System.DateTime> value);
+    partial void OnGuihuanShijianChanged();
+    partial void OnJieyuezhuangtaiChanging(System.Nullable<int> value);
+    partial void OnJieyuezhuangtaiChanged();
+    partial void OnGuihuanzhuangtaiChanging(System.Nullable<int> value);
+    partial void OnGuihuanzhuangtaiChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public Jieyue()
+		{
+			this._FaArchive = default(EntityRef<FaArchive>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TranferId", DbType="BigInt NOT NULL")]
+		public long TranferId
+		{
+			get
+			{
+				return this._TranferId;
+			}
+			set
+			{
+				if ((this._TranferId != value))
+				{
+					this.OnTranferIdChanging(value);
+					this.SendPropertyChanging();
+					this._TranferId = value;
+					this.SendPropertyChanged("TranferId");
+					this.OnTranferIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArchiveId", DbType="BigInt NOT NULL")]
+		public long ArchiveId
+		{
+			get
+			{
+				return this._ArchiveId;
+			}
+			set
+			{
+				if ((this._ArchiveId != value))
+				{
+					if (this._FaArchive.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnArchiveIdChanging(value);
+					this.SendPropertyChanging();
+					this._ArchiveId = value;
+					this.SendPropertyChanged("ArchiveId");
+					this.OnArchiveIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JieyueTianshu", DbType="Int NOT NULL")]
+		public int JieyueTianshu
+		{
+			get
+			{
+				return this._JieyueTianshu;
+			}
+			set
+			{
+				if ((this._JieyueTianshu != value))
+				{
+					this.OnJieyueTianshuChanging(value);
+					this.SendPropertyChanging();
+					this._JieyueTianshu = value;
+					this.SendPropertyChanged("JieyueTianshu");
+					this.OnJieyueTianshuChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JieyueShijian", DbType="DateTime NOT NULL")]
+		public System.DateTime JieyueShijian
+		{
+			get
+			{
+				return this._JieyueShijian;
+			}
+			set
+			{
+				if ((this._JieyueShijian != value))
+				{
+					this.OnJieyueShijianChanging(value);
+					this.SendPropertyChanging();
+					this._JieyueShijian = value;
+					this.SendPropertyChanged("JieyueShijian");
+					this.OnJieyueShijianChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GuihuanShijian", DbType="DateTime")]
+		public System.Nullable<System.DateTime> GuihuanShijian
+		{
+			get
+			{
+				return this._GuihuanShijian;
+			}
+			set
+			{
+				if ((this._GuihuanShijian != value))
+				{
+					this.OnGuihuanShijianChanging(value);
+					this.SendPropertyChanging();
+					this._GuihuanShijian = value;
+					this.SendPropertyChanged("GuihuanShijian");
+					this.OnGuihuanShijianChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Jieyuezhuangtai", DbType="Int")]
+		public System.Nullable<int> Jieyuezhuangtai
+		{
+			get
+			{
+				return this._Jieyuezhuangtai;
+			}
+			set
+			{
+				if ((this._Jieyuezhuangtai != value))
+				{
+					this.OnJieyuezhuangtaiChanging(value);
+					this.SendPropertyChanging();
+					this._Jieyuezhuangtai = value;
+					this.SendPropertyChanged("Jieyuezhuangtai");
+					this.OnJieyuezhuangtaiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Guihuanzhuangtai", DbType="Int")]
+		public System.Nullable<int> Guihuanzhuangtai
+		{
+			get
+			{
+				return this._Guihuanzhuangtai;
+			}
+			set
+			{
+				if ((this._Guihuanzhuangtai != value))
+				{
+					this.OnGuihuanzhuangtaiChanging(value);
+					this.SendPropertyChanging();
+					this._Guihuanzhuangtai = value;
+					this.SendPropertyChanged("Guihuanzhuangtai");
+					this.OnGuihuanzhuangtaiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(50)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FaArchive_Jieyue", Storage="_FaArchive", ThisKey="ArchiveId", OtherKey="Id", IsForeignKey=true)]
+		public FaArchive FaArchive
+		{
+			get
+			{
+				return this._FaArchive.Entity;
+			}
+			set
+			{
+				FaArchive previousValue = this._FaArchive.Entity;
+				if (((previousValue != value) 
+							|| (this._FaArchive.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._FaArchive.Entity = null;
+						previousValue.Jieyues.Remove(this);
+					}
+					this._FaArchive.Entity = value;
+					if ((value != null))
+					{
+						value.Jieyues.Add(this);
+						this._ArchiveId = value.Id;
+					}
+					else
+					{
+						this._ArchiveId = default(long);
+					}
+					this.SendPropertyChanged("FaArchive");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

@@ -62,20 +62,6 @@
       <Association Name="FaArchive_FaProcess" Member="FaArchive" ThisKey="ArchiveId" OtherKey="Id" Type="FaArchive" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Jieyue" Member="Jieyues">
-    <Type Name="Jieyue">
-      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="TranferId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="ArchiveId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="JieyueTianshu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="JieyueShijian" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="GuihuanShijian" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Jieyuezhuangtai" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Guihuanzhuangtai" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Remark" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="FaArchive_Jieyue" Member="FaArchive" ThisKey="ArchiveId" OtherKey="Id" Type="FaArchive" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.FaArchive" Member="FaArchives">
     <Type Name="FaArchive">
       <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -95,6 +81,20 @@
       <Association Name="FaArchive_FaAchriveHistory" Member="FaAchriveHistories" ThisKey="Id" OtherKey="AchriveId" Type="FaAchriveHistory" />
       <Association Name="FaArchive_FaProcess" Member="FaProcesses" ThisKey="Id" OtherKey="ArchiveId" Type="FaProcess" />
       <Association Name="FaArchive_Jieyue" Member="Jieyues" ThisKey="Id" OtherKey="ArchiveId" Type="Jieyue" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Jieyue" Member="Jieyues">
+    <Type Name="Jieyue">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TranferId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ArchiveId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="JieyueTianshu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="JieyueShijian" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="GuihuanShijian" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Jieyuezhuangtai" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Guihuanzhuangtai" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="FaArchive_Jieyue" Member="FaArchive" ThisKey="ArchiveId" OtherKey="Id" Type="FaArchive" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
