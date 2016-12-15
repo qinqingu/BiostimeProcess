@@ -1,0 +1,51 @@
+﻿using System;
+using BiostimeProcess.Models.UI;
+using BiostimeProcess.Service.Utitity;
+
+namespace BiostimeProcess.Pages
+{
+    public partial class Transfer : PageBase
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (IsPostBack)
+            {
+                return;
+            }
+
+            string queryString = Request.QueryString.ToString();
+            switch (TaskType)
+            {
+                case "BeginTask":
+                    Response.Redirect("Start.aspx?" + queryString);
+                    break;
+                case "InboxTask":
+                    InboxTaskResponse(queryString);
+                    break;
+                case "CompleteTask":
+                case "ArchiveTask":
+                case "MyStartTask":
+                    Response.Redirect("Complete.aspx?" + queryString);
+                    break;
+            }
+        }
+        private void InboxTaskResponse(string queryString)
+        {
+            string stepIdentity = EDoc2ProcessManager.GetStepIdentity(TaskId);
+            if (string.IsNullOrEmpty(stepIdentity))
+            {
+                Response.Write("该任务已经执行了!");
+                Response.End();
+            }
+            switch (stepIdentity)
+            {
+                case "开始":
+                    Response.Redirect("Start.aspx?" + queryString);
+                    break;
+                case "审批":
+                    Response.Redirect("Approval.aspx?" + queryString);
+                    break;
+            }
+        }
+    }
+}

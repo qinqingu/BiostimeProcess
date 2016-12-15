@@ -1,0 +1,15 @@
+E:\项目开发\BiostimeProcess\BiostimeProcess\bin\BiostimeProcess.dll
+E:\项目开发\BiostimeProcess\BiostimeProcess\bin\BiostimeProcess.pdb
+E:\项目开发\BiostimeProcess\BiostimeProcess\bin\BiostimeProcess.Service.dll
+E:\项目开发\BiostimeProcess\BiostimeProcess\bin\Newtonsoft.Json.dll
+E:\项目开发\BiostimeProcess\BiostimeProcess\bin\Macrowing.DMS.WorkFlow.dll
+E:\项目开发\BiostimeProcess\BiostimeProcess\bin\EDoc2.Api.dll
+E:\项目开发\BiostimeProcess\BiostimeProcess\bin\EDoc2.Website.Core.dll
+E:\项目开发\BiostimeProcess\BiostimeProcess\bin\EDoc2.Api.Organization.dll
+E:\项目开发\BiostimeProcess\BiostimeProcess\bin\EDoc2.FileAgent.dll
+E:\项目开发\BiostimeProcess\BiostimeProcess\bin\EDoc2.dll
+E:\项目开发\BiostimeProcess\BiostimeProcess\bin\BiostimeProcess.Service.pdb
+E:\项目开发\BiostimeProcess\BiostimeProcess\bin\Newtonsoft.Json.xml
+E:\项目开发\BiostimeProcess\BiostimeProcess\obj\Release\BiostimeProcess.csprojResolveAssemblyReference.cache
+E:\项目开发\BiostimeProcess\BiostimeProcess\obj\Release\BiostimeProcess.dll
+E:\项目开发\BiostimeProcess\BiostimeProcess\obj\Release\BiostimeProcess.pdb

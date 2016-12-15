@@ -1,0 +1,106 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Layout.master.cs" Inherits="BiostimeProcess.Pages.shared.Layout" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head id="Head1" runat="server">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title></title>
+        <link href="../../AppFrontend/bower_components/jquery-ui/redmond/jquery-ui.custom.css" rel="stylesheet" />
+        <link href="../../AppFrontend/bower_components/jquery-ui/jquery.jqgrid/ui.jqgrid.css" rel="stylesheet" />
+        <link href="../../AppFrontend/css/css.css" rel="stylesheet" />
+        <link href="../../AppFrontend/css/webui.css.css" rel="stylesheet" />
+
+        <script src="../../AppFrontend/bower_components/jquery/jquery.js"> </script>
+        <script src="../../AppFrontend/bower_components/jquery-ui/redmond/jquery-ui.custom.js"> </script>
+        <script src="../../AppFrontend/bower_components/jquery/jquery.custom.js"> </script>
+        <script src="../../AppFrontend/bower_components/jquery/jquery.numeric.js"> </script>
+        <script src="../../AppFrontend/bower_components/jquery/jquery.validate.js"> </script>
+        <script src="../../AppFrontend/bower_components/jquery/jquery.validate.custom.js"> </script>
+        
+        <script src="../../AppFrontend/Js/webui/webui.js"></script>
+        <script src="../../AppFrontend/Js/webui/webui.validator.js"></script>
+        <script src="../../AppFrontend/Js/webui/webui.ajax.js"></script>
+        <script src="../../AppFrontend/Js/webui/webui.masterpage.js"></script>
+        <script src="../../AppFrontend/Js/webui-popup-box/confirmation.js"></script>
+        <script src="../../AppFrontend/Js/webui-popup-box/prompt.js"></script>
+        <script src="../../AppFrontend/Js/webui/edoc2.common.js"></script>
+        
+        
+        <link href="../../AppFrontend/bower_components/jquery-ui/jquery.jqgrid/ui.jqgrid.css" rel="stylesheet" />
+        <script src="../../AppFrontend/bower_components/jquery-ui/jquery.jqgrid/grid.locale-cn.js"> </script>
+        <script src="../../AppFrontend/bower_components/jquery-ui/jquery.jqgrid/jquery.jqgrid.js"> </script>
+        <script src="../../AppFrontend/Js/webui/webui.grid.js"></script>
+
+        <script type="text/javascript" language="javascript">
+            $(document).ready(function () {
+                webui.masterPage.initialize({
+                    mainForm: '<%= MainForm.ClientID %>',
+                    errorContainer: 'ErrorContainer',
+                    exclusiveContainer: 'MessageContainer'
+                });
+            });
+        </script>
+
+        <asp:ContentPlaceHolder ID="HeaderPlaceHolder" runat="server">
+        </asp:ContentPlaceHolder>
+    </head>
+    <body>
+        <form id="MainForm" runat="server">
+            <div id="ErrorContainer" class="error">
+            </div>
+            <div id='MessageContainer' style="display: none"></div>
+            <div class="top-wrap">
+                <div class="top">
+                    <div class="width clearfix">
+                        <div class="amberlogo">
+                            EDOC2
+                        </div>
+                        <div class="title beleft dfKai-sb" style="font-size: 20px; padding-left: 40px;">
+                            <asp:Label runat="server" ID="ProcessTitle">标准流程表单工具</asp:Label> 
+                        </div>
+                        <ul id="topTabs">
+                            <li>
+                                <a href="#" class="on">
+                                    <span>我的帐号</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="page_title">
+                    <div class="width dfKai-sb">
+                        <h2>
+                            <asp:Label runat="server" ID="ProcessSubTitle">流程信息</asp:Label> 
+                        </h2>
+                        <ul class="user">
+                            <li style="font-size: 16px;">欢迎回来,<asp:Label runat="server" ID="CurrentUserRealName"></asp:Label></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="main_wrap width clearfix" style="padding-bottom: 0; padding-top: 98px;">
+                <div class="quick_menu width">
+                    <div class="box">
+                        <ul>
+                            <li><a href="#"></a></li>
+                            <li>
+                                <asp:HyperLink runat="server" href="#" class="on" ID="ProcessName">我的流程</asp:HyperLink>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="list_wrap bg_color_f">
+                    <asp:ContentPlaceHolder ID="MainPlaceHolder" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+            <div class="footer margin_t_5" style="margin-top: 0; padding-top: 0; top: 2px">
+                <div class="width">
+                    <span>© 2016 Anna Inc. All Rights Reserved.</span>
+                    <a href="#">Back to Top</a>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

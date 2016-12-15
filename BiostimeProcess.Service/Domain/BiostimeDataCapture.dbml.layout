@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.125, 12.75" name="BiostimeDataCapture">
+  <DataContextMoniker Name="/BiostimeDataCaptureDataContext" />
+  <nestedChildShapes>
+    <classShape Id="b3709a15-d686-419d-83ff-47bc7470a2ff" absoluteBounds="3.75, 0.5, 2, 3.4817427571614576">
+      <DataClassMoniker Name="/BiostimeDataCaptureDataContext/FaArchive" />
+      <nestedChildShapes>
+        <elementListCompartment Id="75cdffa2-545c-49a4-afff-03219827ba46" absoluteBounds="3.7649999999999997, 0.96, 1.9700000000000002, 2.921742757161458" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="93757d7f-14ef-4e88-8a4b-37464e7d85ec" absoluteBounds="5.5, 5.25, 2, 2.3356245930989594">
+      <DataClassMoniker Name="/BiostimeDataCaptureDataContext/FaArchiveTranfer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c0788227-2546-4291-8625-0d26eeac3157" absoluteBounds="5.5150000000000006, 5.71, 1.9700000000000002, 1.7756245930989585" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1914503a-abc6-478b-bbc0-47e6e61a8f64" absoluteBounds="2.75, 5.125, 2, 2.5266442871093746">
+      <DataClassMoniker Name="/BiostimeDataCaptureDataContext/ProcessForm" />
+      <nestedChildShapes>
+        <elementListCompartment Id="16fefdb2-7494-454f-aa59-28107565b961" absoluteBounds="2.765, 5.585, 1.9700000000000002, 1.966644287109375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.75 : 6.41781229654948); (5.5 : 6.41781229654948)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BiostimeDataCaptureDataContext/ProcessForm/ProcessForm_FaArchiveTranfer" />
+      <nodes>
+        <classShapeMoniker Id="1914503a-abc6-478b-bbc0-47e6e61a8f64" />
+        <classShapeMoniker Id="93757d7f-14ef-4e88-8a4b-37464e7d85ec" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="3ce26ec0-8d2c-484e-9289-c1664ea12de4" absoluteBounds="8.875, 5.25, 2, 4.0548018391927076">
+      <DataClassMoniker Name="/BiostimeDataCaptureDataContext/FaProcess" />
+      <nestedChildShapes>
+        <elementListCompartment Id="258edf87-8f47-4710-863a-8ba61de16d04" absoluteBounds="8.89, 5.71, 1.9700000000000002, 3.494801839192708" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.5 : 6.41781229654948); (8.875 : 6.41781229654948)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BiostimeDataCaptureDataContext/FaArchiveTranfer/FaArchiveTranfer_FaProcess" />
+      <nodes>
+        <classShapeMoniker Id="93757d7f-14ef-4e88-8a4b-37464e7d85ec" />
+        <classShapeMoniker Id="3ce26ec0-8d2c-484e-9289-c1664ea12de4" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="7eef2916-35c9-4fb6-a40e-43f7a8700851" absoluteBounds="8.875, 9.75, 2, 2.7176639811197916">
+      <DataClassMoniker Name="/BiostimeDataCaptureDataContext/Jieyue" />
+      <nestedChildShapes>
+        <elementListCompartment Id="80a74cbf-8ec4-4a2a-bb9d-437859484302" absoluteBounds="8.89, 10.21, 1.9700000000000002, 2.1576639811197915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.5 : 7.58562459309896); (6.5 : 11.1088319905599); (8.875 : 11.1088319905599)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/BiostimeDataCaptureDataContext/FaArchiveTranfer/FaArchiveTranfer_Jieyue" />
+      <nodes>
+        <classShapeMoniker Id="93757d7f-14ef-4e88-8a4b-37464e7d85ec" />
+        <classShapeMoniker Id="7eef2916-35c9-4fb6-a40e-43f7a8700851" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
