@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BiostimeProcess.Service.DataService._RepositoryCore;
@@ -12,6 +13,13 @@ namespace BiostimeProcess.Service.DataService
         public FaArchiveTranfer FindFaArchiveTranferByFormId(long processFormId)
         {
             return DataContext.FaArchiveTranfers.FirstOrDefault(t => t.ProcessFormId == processFormId);
+        }
+
+        public IList<long> FindShenpiArchiveIds()
+        {
+            return DataContext.FaProcesses
+                    .Where(t => t.FaArchiveTranfer.LiuchengZhuangtai == (int) LiuchengZhuangtaiEnum.Shenpizhong)
+                    .Select(t=>t.ArchiveId).ToList();
         }
 
         public void ModifyLiuchengzhuangtaiByFileId(FaArchiveTranfer faArchiveTranfer,LiuchengZhuangtaiEnum liuchengZhuangtai)

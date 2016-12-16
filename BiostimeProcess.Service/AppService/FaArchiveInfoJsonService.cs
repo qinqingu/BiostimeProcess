@@ -54,7 +54,7 @@ namespace BiostimeProcess.Service.AppService
             return jsonArchiveInfos;
         }
 
-        public string GetGetAllJieyueArchiveIdsJson(IList<long> jieyueArchiveIds)
+        public string GetGetAllJieyueArchiveIdsJson(List<long> jieyueArchiveIds)
         {
             return Serialize(jieyueArchiveIds);
         }

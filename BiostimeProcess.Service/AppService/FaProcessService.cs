@@ -51,5 +51,13 @@ namespace BiostimeProcess.Service.AppService
         {
             _jieyueRepository.SaveJieyueInfo(entities);
         }
+
+        public List<long> GetAllJieyueArchiveIds()
+        {
+            List<long> jieyueArchiveIds = new List<long>();
+            jieyueArchiveIds.AddRange(_faArchiveTranferRepository.FindShenpiArchiveIds());
+            jieyueArchiveIds.AddRange(_jieyueRepository.FindJieyueArchiveIds());
+            return jieyueArchiveIds;
+        }
     }
 }

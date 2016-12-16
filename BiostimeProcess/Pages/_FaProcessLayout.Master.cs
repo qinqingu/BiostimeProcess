@@ -129,9 +129,9 @@ namespace BiostimeProcess.Pages
                 ShenQingrenDeptName.Text = EDoc2Helper.GetCurrentUserDeptName();
                 ShenQingrenDeptId.Value = EDoc2Helper.GetCurrentUserDeptId().ToString();
             }
-            //IList<long> archiveIds = faProcessService.GetAllJieyueArchiveIds();
-            //jieyueArchiveIds.Value = faArchiveInfoJsonService.GetGetAllJieyueArchiveIdsJson(archiveIds);
-            //FaArchiveDetailsControl.
+            List<long> archiveIds = faProcessService.GetAllJieyueArchiveIds();
+            jieyueArchiveIds.Value = faArchiveInfoJsonService.GetGetAllJieyueArchiveIdsJson(archiveIds);
+            FaArchiveDetailsControl.JieyueArchiveIds = jieyueArchiveIds.Value;
         }
 
         private void InitControls(FaProcessStepEnum value)

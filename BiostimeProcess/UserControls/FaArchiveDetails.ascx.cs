@@ -10,7 +10,6 @@ namespace BiostimeProcess.UserControls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
         }
 
         public FaProcessStepEnum Step
@@ -35,6 +34,11 @@ namespace BiostimeProcess.UserControls
                     }
                 }
             }
+        }
+
+        public string JieyueArchiveIds
+        {
+            set { jieyueArchiveIds.Value = value; }
         }
     }
 }
