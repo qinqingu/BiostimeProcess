@@ -14,9 +14,11 @@
     var $day;
     var $archiveId;
     var $stepValue;
+    var $jieyueArchiveIds;
     
     var $confirmButton;
     var $cancelButton;
+    var archiveLendInfos;
     
     var errorMessages = {
         companyRequired: '请填写公司。',
@@ -71,10 +73,19 @@
         $day = $('#' + ids.day);
         $archiveId = $('#' + ids.archiveId);
         $stepValue = $('#' + ids.stepValue);
+        $jieyueArchiveIds = $('#' + ids.jieyueArchiveIds);
         $confirmButton = $('#' + ids.confirmButton);
         $cancelButton = $('#' + ids.cancelButton);
-        
+        archiveLendInfos = $.parseJSON($jieyueArchiveIds.val());
         $confirmButton.click(function () {
+            var archiveId = $archiveId.val();
+            for (var index = 0; index < archiveLendInfos.length; index++) {
+                var archiveInfo = archiveLendInfos[index];
+                if (archiveInfo == archiveId) {
+                    webui.alert('此档案已借出');
+                    return false;
+                }
+            }
             if (!webui.validator.validate($faArchiveManagementContainer.find(':input:not(:hidden)'), $faArchiveManagementErrorContainer)) {
                 return false;
             }
@@ -179,7 +190,7 @@
             var remark = company + year + month + voucherWord + voucherNumber;
             $.post("Controller.aspx?action=GetPathAndCabinetNo", { remark: remark, d: $.now() }, function (model) {
                 if (model.result != 0) {
-                    webui.disableCloseAlert('出现错误,请联系管理员。');
+                    webui.alert('出现错误,请联系管理员。');
                 }
                 else {
                     if (model.data != null) {

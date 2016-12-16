@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using BiostimeProcess.Service.AppService.Jsons;
 using BiostimeProcess.Service.Domain;
-using BiostimeProcess.Service.Utitity;
 
 namespace BiostimeProcess.Service.AppService
 {
@@ -37,19 +35,19 @@ namespace BiostimeProcess.Service.AppService
             {
                 FaProcess archiveInfo = archiveInfos[archiveInfoIndex];
                 jsonArchiveInfos.Add(new JsonArchiveInfo
-                {
-                    No = archiveInfo.Xuhao,
-                    ArchiveId = archiveInfo.ArchiveId,
-                    Year = archiveInfo.FaArchive.Year,
-                    Month = archiveInfo.FaArchive.Month,
-                    Company = archiveInfo.FaArchive.Company,
-                    VoucherWord = archiveInfo.FaArchive.VoucherWord,
-                    VoucherNumber = archiveInfo.FaArchive.VoucherNumber,
-                    VoucherNo = archiveInfo.FaArchive.VoucherNo,
-                    Path = archiveInfo.FaArchive.Path,
-                    CabinetNo = archiveInfo.FaArchive.CabinetNo,
-                    Day = archiveInfo.JieyueTianshu
-                });
+                    {
+                        No = archiveInfo.Xuhao,
+                        ArchiveId = archiveInfo.ArchiveId,
+                        Year = archiveInfo.FaArchive.Year,
+                        Month = archiveInfo.FaArchive.Month,
+                        Company = archiveInfo.FaArchive.Company,
+                        VoucherWord = archiveInfo.FaArchive.VoucherWord,
+                        VoucherNumber = archiveInfo.FaArchive.VoucherNumber,
+                        VoucherNo = archiveInfo.FaArchive.VoucherNo,
+                        Path = archiveInfo.FaArchive.Path,
+                        CabinetNo = archiveInfo.FaArchive.CabinetNo,
+                        Day = archiveInfo.JieyueTianshu
+                    });
             }
             return jsonArchiveInfos;
         }
