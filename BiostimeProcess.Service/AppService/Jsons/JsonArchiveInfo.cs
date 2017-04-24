@@ -25,7 +25,7 @@
         /// <summary>
         ///     月份
         /// </summary>
-        public int Month { get; set; }
+        public int? Month { get; set; }
 
         /// <summary>
         ///     凭证字
@@ -35,12 +35,22 @@
         /// <summary>
         ///     凭证号
         /// </summary>
-        public int VoucherNumber { get; set; }
+        public int? VoucherNumber { get; set; }
 
         /// <summary>
         ///     凭证券号
         /// </summary>
         public string VoucherNo { get; set; }
+
+        /// <summary>
+        ///     报告名称
+        /// </summary>
+        public string BaogaoMingcheng { get; set; }
+
+        /// <summary>
+        ///     合同号
+        /// </summary>
+        public string HetongHao { get; set; }
 
         /// <summary>
         ///     存储位置

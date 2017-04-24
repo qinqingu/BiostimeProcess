@@ -54,6 +54,11 @@ namespace BiostimeProcess.Service.Utitity
             get { return 2; }
         }
 
+        /// <summary>
+        ///    财务档案管理员用户组
+        /// </summary>
+        public static int ManagerGroup = int.Parse(ConfigurationManager.AppSettings["ManagerGroup"]);
+
         #endregion
     }
 }

@@ -70,6 +70,8 @@
     <Compile Include="AppService\EDoc2ProcessManager.cs" />
     <Compile Include="AppService\FaArchiveInfoJsonService.cs" />
     <Compile Include="AppService\FaArchiveService.cs" />
+    <Compile Include="AppService\FaPaymentInfoJsonService.cs" />
+    <Compile Include="AppService\FaReportInfoJsonService.cs" />
     <Compile Include="AppService\FaProcessService.cs" />
     <Compile Include="AppService\Jsons\AbstractJsonService.cs" />
     <Compile Include="AppService\Jsons\JsonArchiveInfo.cs" />
@@ -82,7 +84,7 @@
     <Compile Include="DataService\_RepositoryCore\DataContextFactory.cs" />
     <Compile Include="DataService\FaArchiveTranferRepository.cs" />
     <Compile Include="DataService\_RepositoryCore\SqlHelper.cs" />
-    <Compile Include="Domain\Enum\AdProcessStepEnum.cs" />
+    <Compile Include="Domain\Enum\FaProcessStepEnum.cs" />
     <Compile Include="Domain\ArchiveZhuangTaiEnum.cs" />
     <Compile Include="Domain\BiostimeDataCapture.cs">
       <DependentUpon>BiostimeDataCapture.dbml</DependentUpon>

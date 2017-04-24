@@ -110,6 +110,19 @@ namespace BiostimeProcess.Service.Utitity
             }
         }
 
+        public static string GetCurrentUserAccount()
+        {
+            try
+            {
+                EDoc2UserInfo userInfo = WebsiteUtility.CurrentUser;
+                return userInfo.UserLoginName;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
         public static int GetCurrentUserId()
         {
             try
@@ -146,6 +159,57 @@ namespace BiostimeProcess.Service.Utitity
             catch
             {
                 return string.Empty;
+            }
+        }
+
+        /// <summary>
+        ///     获取用户组中的用户id
+        /// </summary>
+        /// <param name="groupId">用户组id</param>
+        /// <returns></returns>
+        public static IList<int> GetChildUserListInGroup(int groupId)
+        {
+            //ResultInt:Result=0成功,ResultValue:文件编号
+            try
+            {
+                string token = GetAdminToken();
+                List<EDoc2UserInfo> userInfos;
+                int result = ApiManager.Api.OrgnizationManagement.GetChildUsersInUserGroup(token, groupId,out userInfos);
+                if (result != 0)
+                {
+                    throw new Exception("GetChildUserListInGroup出错,result=" + result);
+                }
+                return userInfos.Select(item => item.UserId).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetChildUserListInGroup出现异常,exMessage=" + ex.Message);
+            }
+        }
+
+        /// <summary>
+        ///     判断用户是否在指定用户中
+        /// </summary>
+        /// <param name="userIdentityId"></param>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        public static bool IsUserInUserGroup(int userIdentityId, int groupId)
+        {
+            try
+            {
+                //var organizationApiProvider = new OrganizationApiProvider();
+                //return organizationApiProvider.IsUserInUserGroup(userIdentityId, groupId, recursive);
+                bool hasValue = false;
+                IList<int> userIds = GetChildUserListInGroup(groupId);
+                if (userIds.IndexOf(userIdentityId) != -1 || userIdentityId == WebConfig.Edoc2AdminId)
+                {
+                    hasValue = true;
+                }
+                return hasValue;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("IsUserInUserGroup Exception,exMessage=" + ex.Message);
             }
         }
 

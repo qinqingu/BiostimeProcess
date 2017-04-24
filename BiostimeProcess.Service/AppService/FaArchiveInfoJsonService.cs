@@ -22,13 +22,13 @@ namespace BiostimeProcess.Service.AppService
             return archiveInfos;
         }
 
-        public string GetFileInfosJson(List<FaProcess> archiveInfos)
+        public string GetArchiveInfosJson(List<FaProcess> archiveInfos)
         {
-            List<JsonArchiveInfo> jsonArchiveInfos = GetJsonFileInfos(archiveInfos);
+            List<JsonArchiveInfo> jsonArchiveInfos = GetJsonArchiveInfos(archiveInfos);
             return Serialize(jsonArchiveInfos);
         }
 
-        public List<JsonArchiveInfo> GetJsonFileInfos(List<FaProcess> archiveInfos)
+        public List<JsonArchiveInfo> GetJsonArchiveInfos(List<FaProcess> archiveInfos)
         {
             var jsonArchiveInfos = new List<JsonArchiveInfo>();
             for (int archiveInfoIndex = 0; archiveInfoIndex < archiveInfos.Count; archiveInfoIndex++)

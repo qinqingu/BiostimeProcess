@@ -11,5 +11,20 @@ namespace BiostimeProcess.Service.DataService
         {
             return DataContext.FaProcesses.Where(t => t.TransferId == tranferId).ToList();
         }
+
+        public IList<FaCompany> FindEnableCompany()
+        {
+            return DataContext.FaCompanies.ToList();
+        }
+        
+        public IList<string> FindEnableCompanyName()
+        {
+            return DataContext.FaCompanies.Select(t =>t.Name).ToList();
+        }
+
+        public IList<string> FindReportName()
+        {
+            return DataContext.FaReportNames.Select(item=>item.Name).ToList();
+        }
     }
 }

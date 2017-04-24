@@ -62,6 +62,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppFrontend\bower_components\bootstrap\bootstrap.min.js" />
     <Content Include="AppFrontend\bower_components\jquery-fileupload\jquery.fileupload.js" />
     <Content Include="AppFrontend\bower_components\jquery-fileupload\jquery.iframe-transport.js" />
     <Content Include="AppFrontend\bower_components\jquery-ui\jquery.jqgrid\grid.locale-cn.js" />
@@ -215,6 +216,10 @@
     <Content Include="AppFrontend\images\wait.gif" />
     <Content Include="AppFrontend\images\warning.png" />
     <Content Include="AppFrontend\images\wrap_bg.png" />
+    <Content Include="AppFrontend\Js\Payment\faPaymentInfoDetails.js" />
+    <Content Include="AppFrontend\Js\Payment\faPaymentProcess.js" />
+    <Content Include="AppFrontend\Js\Report\faReportInfoDetails.js" />
+    <Content Include="AppFrontend\Js\Report\faReportProcess.js" />
     <Content Include="AppFrontend\Js\webui-popup-box\confirmation.js" />
     <Content Include="AppFrontend\Js\webui-popup-box\prompt.js" />
     <Content Include="AppFrontend\Js\webui\webui.ajax.js" />
@@ -223,15 +228,27 @@
     <Content Include="AppFrontend\Js\webui\webui.validator.js" />
     <Content Include="AppFrontend\Js\webui\webui.js" />
     <Content Include="AppFrontend\Js\webui\edoc2.common.js" />
-    <Content Include="AppFrontend\Js\process-fa\faArchiveInfodetails.js" />
-    <Content Include="Pages\Approval.aspx" />
-    <Content Include="Pages\Complete.aspx" />
-    <Content Include="Pages\Controller.aspx" />
-    <Content Include="Pages\Start.aspx" />
-    <Content Include="Pages\Transfer.aspx" />
-    <Content Include="UserControls\FaArchiveDetails.ascx" />
+    <Content Include="AppFrontend\Js\Voucher\faVoucherInfodetails.js" />
+    <Content Include="Pages\Payment\Approval.aspx" />
+    <Content Include="Pages\Payment\FinalApproval.aspx" />
+    <Content Include="Pages\Payment\Start.aspx" />
+    <Content Include="Pages\Payment\Transfer.aspx" />
+    <Content Include="Pages\Report\FinalApproval.aspx" />
+    <Content Include="Pages\Voucher\Complete.aspx" />
+    <Content Include="Pages\Shared\Controller.aspx" />
+    <Content Include="Pages\Voucher\FinalApproval.aspx" />
+    <Content Include="Pages\Voucher\Start.aspx" />
+    <Content Include="Pages\Voucher\Transfer.aspx" />
+    <Content Include="Pages\Report\Approval.aspx" />
+    <Content Include="Pages\Report\Start.aspx" />
+    <Content Include="Pages\Report\Transfer.aspx" />
+    <Content Include="UserControls\FaPaymentDetails.ascx" />
+    <Content Include="UserControls\FaVoucherDetails.ascx" />
+    <Content Include="UserControls\FaReportDetails.ascx" />
     <Content Include="UserControls\ProcessTasks.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Extension\WebControlsExtensions.cs" />
@@ -245,26 +262,89 @@
     <Compile Include="Models\UI\UserControlBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Approval.aspx.cs">
+    <Compile Include="Pages\Payment\Approval.aspx.cs">
       <DependentUpon>Approval.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Approval.aspx.designer.cs">
+    <Compile Include="Pages\Payment\Approval.aspx.designer.cs">
       <DependentUpon>Approval.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Complete.aspx.cs">
+    <Compile Include="Pages\Payment\FinalApproval.aspx.cs">
+      <DependentUpon>FinalApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Payment\FinalApproval.aspx.designer.cs">
+      <DependentUpon>FinalApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Payment\Start.aspx.cs">
+      <DependentUpon>Start.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Payment\Start.aspx.designer.cs">
+      <DependentUpon>Start.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Payment\_PaymentLayout.Master.cs">
+      <DependentUpon>_PaymentLayout.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Payment\_PaymentLayout.Master.designer.cs">
+      <DependentUpon>_PaymentLayout.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Payment\Transfer.aspx.cs">
+      <DependentUpon>Transfer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Payment\Transfer.aspx.designer.cs">
+      <DependentUpon>Transfer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Report\FinalApproval.aspx.cs">
+      <DependentUpon>FinalApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Report\FinalApproval.aspx.designer.cs">
+      <DependentUpon>FinalApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Voucher\Complete.aspx.cs">
       <DependentUpon>Complete.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Complete.aspx.designer.cs">
+    <Compile Include="Pages\Voucher\Complete.aspx.designer.cs">
       <DependentUpon>Complete.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Controller.aspx.cs">
+    <Compile Include="Pages\Shared\Controller.aspx.cs">
       <DependentUpon>Controller.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Controller.aspx.designer.cs">
+    <Compile Include="Pages\Shared\Controller.aspx.designer.cs">
       <DependentUpon>Controller.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Report\Approval.aspx.cs">
+      <DependentUpon>Approval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Report\Approval.aspx.designer.cs">
+      <DependentUpon>Approval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Report\Start.aspx.cs">
+      <DependentUpon>Start.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Report\Start.aspx.designer.cs">
+      <DependentUpon>Start.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Report\Transfer.aspx.cs">
+      <DependentUpon>Transfer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Report\Transfer.aspx.designer.cs">
+      <DependentUpon>Transfer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Report\_ReportLayout.Master.cs">
+      <DependentUpon>_ReportLayout.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Report\_ReportLayout.Master.designer.cs">
+      <DependentUpon>_ReportLayout.Master</DependentUpon>
     </Compile>
     <Compile Include="Pages\Shared\Layout.Master.cs">
       <DependentUpon>Layout.Master</DependentUpon>
@@ -273,34 +353,55 @@
     <Compile Include="Pages\Shared\Layout.Master.designer.cs">
       <DependentUpon>Layout.Master</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Start.aspx.cs">
+    <Compile Include="Pages\Voucher\FinalApproval.aspx.cs">
+      <DependentUpon>FinalApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Voucher\FinalApproval.aspx.designer.cs">
+      <DependentUpon>FinalApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Voucher\Start.aspx.cs">
       <DependentUpon>Start.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Start.aspx.designer.cs">
+    <Compile Include="Pages\Voucher\Start.aspx.designer.cs">
       <DependentUpon>Start.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Transfer.aspx.cs">
+    <Compile Include="Pages\Voucher\Transfer.aspx.cs">
       <DependentUpon>Transfer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Transfer.aspx.designer.cs">
+    <Compile Include="Pages\Voucher\Transfer.aspx.designer.cs">
       <DependentUpon>Transfer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\_FaProcessLayout.Master.cs">
-      <DependentUpon>_FaProcessLayout.Master</DependentUpon>
+    <Compile Include="Pages\Voucher\_VoucherLayout.Master.cs">
+      <DependentUpon>_VoucherLayout.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\_FaProcessLayout.Master.designer.cs">
-      <DependentUpon>_FaProcessLayout.Master</DependentUpon>
+    <Compile Include="Pages\Voucher\_VoucherLayout.Master.designer.cs">
+      <DependentUpon>_VoucherLayout.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControls\FaArchiveDetails.ascx.cs">
-      <DependentUpon>FaArchiveDetails.ascx</DependentUpon>
+    <Compile Include="UserControls\FaPaymentDetails.ascx.cs">
+      <DependentUpon>FaPaymentDetails.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\FaArchiveDetails.ascx.designer.cs">
-      <DependentUpon>FaArchiveDetails.ascx</DependentUpon>
+    <Compile Include="UserControls\FaPaymentDetails.ascx.designer.cs">
+      <DependentUpon>FaPaymentDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FaVoucherDetails.ascx.cs">
+      <DependentUpon>FaVoucherDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\FaVoucherDetails.ascx.designer.cs">
+      <DependentUpon>FaVoucherDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FaReportDetails.ascx.cs">
+      <DependentUpon>FaReportDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\FaReportDetails.ascx.designer.cs">
+      <DependentUpon>FaReportDetails.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ProcessTasks.ascx.cs">
       <DependentUpon>ProcessTasks.ascx</DependentUpon>
@@ -313,8 +414,10 @@
   <ItemGroup>
     <Content Include="AppFrontend\images\quick_menu.bg" />
     <Content Include="Pages\Shared\Layout.Master" />
-    <Content Include="Pages\_FaProcessLayout.Master" />
-    <Content Include="AppFrontend\Js\process-fa\faProcess.js" />
+    <Content Include="Pages\Voucher\_VoucherLayout.Master" />
+    <Content Include="AppFrontend\Js\Voucher\faVoucherProcess.js" />
+    <Content Include="Pages\Report\_ReportLayout.Master" />
+    <Content Include="Pages\Payment\_PaymentLayout.Master" />
     <None Include="Properties\PublishProfiles\BiostimeProcess.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

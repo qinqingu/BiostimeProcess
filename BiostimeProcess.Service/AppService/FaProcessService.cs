@@ -22,6 +22,22 @@ namespace BiostimeProcess.Service.AppService
             _jieyueRepository =new JieyueRepository();
         }
 
+        public IList<FaCompany> GetEnableCompany()
+        {
+            return _faProcessRepository.FindEnableCompany();
+        }
+        
+        public IList<string> GetEnableCompanyNames()
+        {
+            return _faProcessRepository.FindEnableCompanyName();
+        }
+
+        public IList<string> GetAllReportName()
+        {
+            return _faProcessRepository.FindReportName();
+        }
+
+
         public FaArchiveTranfer GetFaArchiveTranferByFormId(long processFormId)
         {
             return _faArchiveTranferRepository.FindFaArchiveTranferByFormId(processFormId);
@@ -56,7 +72,7 @@ namespace BiostimeProcess.Service.AppService
         {
             List<long> jieyueArchiveIds = new List<long>();
             jieyueArchiveIds.AddRange(_faArchiveTranferRepository.FindShenpiArchiveIds());
-            jieyueArchiveIds.AddRange(_jieyueRepository.FindJieyueArchiveIds());
+            jieyueArchiveIds.AddRange(_jieyueRepository.FindKeJieyueArchiveIds());
             return jieyueArchiveIds;
         }
     }

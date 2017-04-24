@@ -10,6 +10,9 @@
     <TimeStampOfAssociatedLegacyPublishXmlFile />
   </PropertyGroup>
   <ItemGroup>
+    <File Include="AppFrontend/bower_components/bootstrap/bootstrap.min.js">
+      <publishTime>04/20/2017 21:34:15</publishTime>
+    </File>
     <File Include="AppFrontend/bower_components/jquery-fileupload/jquery.fileupload.js">
       <publishTime>11/21/2016 13:21:05</publishTime>
     </File>
@@ -472,11 +475,29 @@
     <File Include="AppFrontend/images/wrap_bg.png">
       <publishTime>11/21/2016 13:21:08</publishTime>
     </File>
+    <File Include="AppFrontend/Js/Payment/faPaymentInfoDetails.js">
+      <publishTime>04/22/2017 16:57:20</publishTime>
+    </File>
+    <File Include="AppFrontend/Js/Payment/faPaymentProcess.js">
+      <publishTime>03/16/2017 14:09:40</publishTime>
+    </File>
     <File Include="AppFrontend/Js/process-fa/faArchiveInfodetails.js">
-      <publishTime>12/14/2016 18:00:04</publishTime>
+      <publishTime>12/27/2016 20:31:46</publishTime>
     </File>
     <File Include="AppFrontend/Js/process-fa/faProcess.js">
       <publishTime>12/15/2016 17:20:26</publishTime>
+    </File>
+    <File Include="AppFrontend/Js/Report/faReportInfoDetails.js">
+      <publishTime>02/09/2017 13:25:02</publishTime>
+    </File>
+    <File Include="AppFrontend/Js/Report/faReportProcess.js">
+      <publishTime>03/16/2017 14:10:42</publishTime>
+    </File>
+    <File Include="AppFrontend/Js/Voucher/faVoucherInfodetails.js">
+      <publishTime>04/22/2017 19:14:17</publishTime>
+    </File>
+    <File Include="AppFrontend/Js/Voucher/faVoucherProcess.js">
+      <publishTime>03/16/2017 14:11:38</publishTime>
     </File>
     <File Include="AppFrontend/Js/webui-popup-box/confirmation.js">
       <publishTime>11/23/2016 11:29:47</publishTime>
@@ -503,10 +524,10 @@
       <publishTime>11/23/2016 11:27:50</publishTime>
     </File>
     <File Include="bin/BiostimeProcess.dll">
-      <publishTime>12/15/2016 19:59:10</publishTime>
+      <publishTime>04/22/2017 20:16:13</publishTime>
     </File>
     <File Include="bin/BiostimeProcess.Service.dll">
-      <publishTime>12/15/2016 19:59:08</publishTime>
+      <publishTime>04/22/2017 20:16:11</publishTime>
     </File>
     <File Include="bin/EDoc2.Api.dll">
       <publishTime>04/09/2015 20:12:44</publishTime>
@@ -538,8 +559,41 @@
     <File Include="Pages/Controller.aspx">
       <publishTime>11/25/2016 19:59:26</publishTime>
     </File>
+    <File Include="Pages/Payment/Approval.aspx">
+      <publishTime>02/08/2017 17:32:06</publishTime>
+    </File>
+    <File Include="Pages/Payment/FinalApproval.aspx">
+      <publishTime>02/24/2017 16:09:46</publishTime>
+    </File>
+    <File Include="Pages/Payment/Start.aspx">
+      <publishTime>02/08/2017 17:31:57</publishTime>
+    </File>
+    <File Include="Pages/Payment/Transfer.aspx">
+      <publishTime>02/07/2017 17:42:50</publishTime>
+    </File>
+    <File Include="Pages/Payment/_PaymentLayout.Master">
+      <publishTime>04/20/2017 17:10:44</publishTime>
+    </File>
+    <File Include="Pages/Report/Approval.aspx">
+      <publishTime>02/09/2017 13:26:01</publishTime>
+    </File>
+    <File Include="Pages/Report/FinalApproval.aspx">
+      <publishTime>02/24/2017 13:50:57</publishTime>
+    </File>
+    <File Include="Pages/Report/Start.aspx">
+      <publishTime>02/09/2017 13:25:46</publishTime>
+    </File>
+    <File Include="Pages/Report/Transfer.aspx">
+      <publishTime>02/05/2017 21:16:39</publishTime>
+    </File>
+    <File Include="Pages/Report/_ReportLayout.Master">
+      <publishTime>04/20/2017 17:18:10</publishTime>
+    </File>
+    <File Include="Pages/Shared/Controller.aspx">
+      <publishTime>11/25/2016 19:59:26</publishTime>
+    </File>
     <File Include="Pages/Shared/Layout.Master">
-      <publishTime>11/23/2016 11:58:36</publishTime>
+      <publishTime>04/22/2017 17:26:45</publishTime>
     </File>
     <File Include="Pages/Shared/Transfer.aspx">
       <publishTime>11/26/2016 20:26:58</publishTime>
@@ -550,17 +604,41 @@
     <File Include="Pages/Transfer.aspx">
       <publishTime>11/29/2016 12:38:37</publishTime>
     </File>
+    <File Include="Pages/Voucher/Complete.aspx">
+      <publishTime>02/07/2017 13:51:47</publishTime>
+    </File>
+    <File Include="Pages/Voucher/FinalApproval.aspx">
+      <publishTime>02/23/2017 17:14:28</publishTime>
+    </File>
+    <File Include="Pages/Voucher/Start.aspx">
+      <publishTime>02/07/2017 16:50:32</publishTime>
+    </File>
+    <File Include="Pages/Voucher/Transfer.aspx">
+      <publishTime>11/29/2016 12:38:37</publishTime>
+    </File>
+    <File Include="Pages/Voucher/_VoucherLayout.Master">
+      <publishTime>04/20/2017 17:14:53</publishTime>
+    </File>
     <File Include="Pages/_FaProcessLayout.Master">
       <publishTime>12/14/2016 21:57:18</publishTime>
     </File>
     <File Include="UserControls/FaArchiveDetails.ascx">
       <publishTime>12/15/2016 10:41:02</publishTime>
     </File>
+    <File Include="UserControls/FaPaymentDetails.ascx">
+      <publishTime>04/22/2017 16:57:37</publishTime>
+    </File>
+    <File Include="UserControls/FaReportDetails.ascx">
+      <publishTime>04/22/2017 17:04:12</publishTime>
+    </File>
+    <File Include="UserControls/FaVoucherDetails.ascx">
+      <publishTime>04/22/2017 17:12:00</publishTime>
+    </File>
     <File Include="UserControls/ProcessTasks.ascx">
       <publishTime>11/21/2016 13:30:28</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/15/2016 19:59:12</publishTime>
+      <publishTime>04/22/2017 20:16:14</publishTime>
     </File>
   </ItemGroup>
 </Project>

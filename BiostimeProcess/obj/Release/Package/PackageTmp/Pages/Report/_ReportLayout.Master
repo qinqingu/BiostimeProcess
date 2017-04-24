@@ -1,0 +1,120 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="../Shared/Layout.Master" CodeBehind="_ReportLayout.Master.cs" Inherits="BiostimeProcess.Pages.Baogao._BaogaoLayout" %>
+<%@ MasterType VirtualPath="../Shared/Layout.Master" %>
+<%@ Register src="../../UserControls/ProcessTasks.ascx" tagname="ProcessTasks" tagprefix="userControl" %>
+<%@ Register src="../../UserControls/FaReportDetails.ascx" tagname="FaReportDetails" tagprefix="userControl" %>
+<asp:Content ID="HeaderContent" ContentPlaceHolderID="HeaderPlaceHolder" runat="server">
+    <script src="../../AppFrontend/Js/Report/faReportProcess.js"></script>
+    <script src="../../AppFrontend/Js/Report/faReportInfoDetails.js"></script>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            webui.faReportProcess.initialize({
+                faReportProcessContainer: 'FaReportProcessContainer',
+                faReportErrorContainer: 'FaReportErrorContainer',
+                stepValue: '<%= StepValue.ClientID %>',
+                shenQingren: '<%= ShenQingrenName.ClientID %>',
+                shenQingrenDeptName: '<%= ShenQingrenDeptName.ClientID %>',
+                shenQingRiqi: '<%= ShenQingRiqi.ClientID %>',
+                jieyueYuanyin: '<%= JieyueYuanyin.ClientID %>',
+                faArchiveInfosGrid: 'faArchiveInfosGrid',
+                faArchiveInfosPager: 'faArchiveInfosPager',
+                faArchiveInfoData: '<%= faArchiveInfoData.ClientID %>',
+                faArchiveGridHasNoData: '<%= faArchiveGridHasNoData.ClientID %>',
+                jieyueIds: '<%= jieyueIds.ClientID %>',
+                shenQingrenId: '<%= ShenQingrenId.ClientID %>',
+                shenQingrenAccount: '<%= ShenQingrenAccount.ClientID %>',
+                shenQingrenDeptId: '<%= ShenQingrenDeptId.ClientID %>'
+            }, {
+                editArchiveInfoButton: 'editArchiveInfoButton',
+                removeArchiveInfoButton: 'removeArchiveInfoButton'
+            });
+        });
+    </script>
+    <asp:ContentPlaceHolder ID="HeaderPlaceHolder" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="MainContent" ContentPlaceHolderID="MainPlaceHolder" runat="server">
+    <div class="content_container" id="FaReportProcessContainer">
+        <ul class="step clearfix">
+            <li>
+                <asp:HiddenField runat="server" ID="StepValue"/>
+                <%--激活状态class="on"--%>
+                <asp:HyperLink runat="server" href="#" ID="Step0">
+                    <span class="digital">1</span>
+                    <span class="text">流程发起</span>
+                </asp:HyperLink>
+            </li>
+            <li>
+                <asp:HyperLink runat="server" href="#" ID="Step1">
+                    <span class="digital">2</span>
+                    <span class="text">审批</span>
+                </asp:HyperLink>
+            </li>
+            <li>
+                <asp:HyperLink runat="server" href="#" ID="Step2">
+                    <span class="digital">2</span>
+                    <span class="text">档案管理员</span>
+                </asp:HyperLink>
+            </li>
+            <li>
+                <asp:HyperLink runat="server" href="#" ID="Step3">
+                    <span class="digital">3</span>
+                    <span class="text">已完成</span>
+                </asp:HyperLink>
+            </li>
+        </ul>
+        <div id="FaReportErrorContainer" class="error" ></div>
+        <div class="headings">
+           借阅信息
+        </div>
+        <div class="content_box box_content">
+            <table style="width: 100%;">
+                <tr class="border_b_1_da">
+                    <td>
+                        申请人:
+                    </td>
+                    <td>
+                        <asp:HiddenField ID="ShenQingrenId" Value="" runat="server" />
+                        <asp:HiddenField ID="ShenQingrenAccount" Value="" runat="server" />
+                        <asp:TextBox runat="server" ID="ShenQingrenName" class="text_input" ReadOnly="True" ></asp:TextBox>
+                    </td>
+                    <td>
+                        申请人所属部门:
+                    </td>
+                    <td>
+                        <asp:HiddenField ID="ShenQingrenDeptId" Value="" runat="server" />
+                        <asp:TextBox runat="server" ID="ShenQingrenDeptName" class="text_input"  ReadOnly="True" ></asp:TextBox>
+                    </td>
+                    <td>申请日期</td>
+                    <td>
+                       <asp:TextBox runat="server" ID="ShenQingRiqi" class="text_input"  ReadOnly="True" ></asp:TextBox>
+                    </td>
+                </tr>
+                 <tr class="border_b_1_da">
+                    <td>
+                        申请原因:
+                    </td>
+                    <td colspan="5">
+                        <textarea style="height: 60px; width: 920px;" maxlength="500" cols="45"
+                                  rows="5" id="JieyueYuanyin" runat="server"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="headings">
+            档案信息
+        </div>
+        <div class="content_box box_content">
+            <div>
+                <table id="faArchiveInfosGrid"></table>
+                <div id="faArchiveInfosPager"></div>
+            </div>
+            <asp:ContentPlaceHolder ID="MainPlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <usercontrol:ProcessTasks ID="ProcessTasksControl" runat="server" />
+        <usercontrol:FaReportDetails ID="FaReportDetailsControl" runat="server" />
+        <asp:HiddenField ID="faArchiveInfoData" Value="[]" runat="server" />
+        <asp:HiddenField ID="faArchiveGridHasNoData" Value="" runat="server" />
+        <asp:HiddenField ID="jieyueIds" Value="[]" runat="server" />
+    </div>
+</asp:Content>

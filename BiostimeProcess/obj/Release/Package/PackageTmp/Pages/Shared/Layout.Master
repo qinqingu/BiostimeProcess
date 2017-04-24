@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Layout.master.cs" Inherits="BiostimeProcess.Pages.shared.Layout" %>
+﻿按<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Layout.master.cs" Inherits="BiostimeProcess.Pages.shared.Layout" %>
 
 <!DOCTYPE html>
 
@@ -24,7 +24,6 @@
         <script src="../../AppFrontend/Js/webui/webui.masterpage.js"></script>
         <script src="../../AppFrontend/Js/webui-popup-box/confirmation.js"></script>
         <script src="../../AppFrontend/Js/webui-popup-box/prompt.js"></script>
-        <script src="../../AppFrontend/Js/webui/edoc2.common.js"></script>
         
         
         <link href="../../AppFrontend/bower_components/jquery-ui/jquery.jqgrid/ui.jqgrid.css" rel="stylesheet" />

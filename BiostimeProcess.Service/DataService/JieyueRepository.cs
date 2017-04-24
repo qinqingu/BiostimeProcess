@@ -10,9 +10,9 @@ namespace BiostimeProcess.Service.DataService
 {
     public class JieyueRepository : AbstractRepository
     {
-        public IList<long> FindJieyueArchiveIds()
+        public IList<long> FindKeJieyueArchiveIds()
         {
-            return DataContext.Jieyues.Select(t => t.ArchiveId).ToList();
+            return DataContext.Jieyues.Where(t => t.Jieyuezhuangtai == (int)JieyueZhuangtaiEnum.KeJieyue || t.Jieyuezhuangtai == (int)JieyueZhuangtaiEnum.YiJieyue).Select(t => t.ArchiveId).ToList();
         }
 
         public IList<Jieyue> FindJieyuelstByTranferId(long tranferId)

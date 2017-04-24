@@ -24,7 +24,6 @@
         <script src="../../AppFrontend/Js/webui/webui.masterpage.js"></script>
         <script src="../../AppFrontend/Js/webui-popup-box/confirmation.js"></script>
         <script src="../../AppFrontend/Js/webui-popup-box/prompt.js"></script>
-        <script src="../../AppFrontend/Js/webui/edoc2.common.js"></script>
         
         
         <link href="../../AppFrontend/bower_components/jquery-ui/jquery.jqgrid/ui.jqgrid.css" rel="stylesheet" />

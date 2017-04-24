@@ -43,5 +43,26 @@ namespace BiostimeProcess.Service.Properties {
                 return ((string)(this["BiostimeDataCaptureConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.0.185\\SQLEXPRESS;Initial Catalog=BiostimeDataCapture;User ID=" +
+            "sa")]
+        public string BiostimeDataCaptureConnectionString2 {
+            get {
+                return ((string)(this["BiostimeDataCaptureConnectionString2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.0.183;Initial Catalog=BiostimeDataCapture;User ID=sa")]
+        public string BiostimeDataCaptureConnectionString3 {
+            get {
+                return ((string)(this["BiostimeDataCaptureConnectionString3"]));
+            }
+        }
     }
 }
