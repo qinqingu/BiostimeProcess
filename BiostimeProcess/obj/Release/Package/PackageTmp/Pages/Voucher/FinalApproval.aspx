@@ -8,7 +8,7 @@
             var $returnPrevStepButton = $('#' + '<%= ReturnPrevStepButton.ClientID %>');
             var $returnStartorButton = $('#' + '<%= ReturnStartorButton.ClientID %>');
             $submitProcessButton.add($returnPrevStepButton).add($returnStartorButton).click(function () {
-                return webui.faProcess.submitValidate();
+                return webui.faVoucherProcess.submitValidate();
             });
         });
     </script>

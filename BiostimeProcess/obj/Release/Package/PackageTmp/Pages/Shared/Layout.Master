@@ -1,4 +1,4 @@
-﻿按<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Layout.master.cs" Inherits="BiostimeProcess.Pages.shared.Layout" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Layout.master.cs" Inherits="BiostimeProcess.Pages.shared.Layout" %>
 
 <!DOCTYPE html>
 
