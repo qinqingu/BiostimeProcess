@@ -8,9 +8,6 @@
                 公司
             </td>
             <td style="width: 220px">
-               <%-- <asp:DropDownList runat="server" ID="Companies" style="width: 91%;">
-                    <asp:ListItem Value="">选择</asp:ListItem>
-                </asp:DropDownList>--%>
                  <asp:HiddenField runat="server" ID="CompanyNames" Value="[]"/>
                  <asp:TextBox runat="server" ID="CompanyName" style="width: 200px;" MaxLength="150" class="text_input" ></asp:TextBox>
             </td>

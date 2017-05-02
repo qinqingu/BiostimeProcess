@@ -64,13 +64,63 @@
             delay: 0,
             minLength: 0,
             maxLength:10,
-            source: sourceValues
+            source: sourceValues,
+            change: function (event, ui) {
+                setPathAndCabinetNoVal();
+            }
         }).click(function () {
             // 双击的时候进行查找
             $(this).autocomplete('search', '');
         });
     };
-
+    var setPathAndCabinetNoVal = function () {
+        var company = $companyName.val();
+        var year = $year.val();
+        var month = $month.val();
+        var hetongHao = $hetongHao.val();
+        if (company.length == 0) {
+            $path.val('');
+            $cabinetNo.val('');
+            $archiveId.val('');
+            return;
+        }
+        if (year.length == 0) {
+            $path.val('');
+            $cabinetNo.val('');
+            $archiveId.val('');
+            return;
+        }
+        if (month.length == 0) {
+            $path.val('');
+            $cabinetNo.val('');
+            $archiveId.val('');
+            return;
+        }
+        if (hetongHao.length == 0) {
+            $path.val('');
+            $cabinetNo.val('');
+            $archiveId.val('');
+            return;
+        }
+        var remark = company + '\\' + year + '\\' + month + '\\' + hetongHao;
+        $.post("../Shared/Controller.aspx?action=GetPathAndCabinetNo", { remark: remark, d: $.now() }, function (model) {
+            if (model.result != 0) {
+                webui.alert('出现错误,请联系管理员。');
+            }
+            else {
+                if (model.data != null) {
+                    $path.val(model.data.Path);
+                    $cabinetNo.val(model.data.CabinetNo);
+                    $archiveId.val(model.data.Id);
+                } else {
+                    $path.val('');
+                    $cabinetNo.val('');
+                    $archiveId.val('');
+                }
+            }
+        });
+    };
+    
     var that = {};
     that.initialize = function (ids) {
         $faPaymentManagementContainer = $('#' + ids.faPaymentManagementContainer);
@@ -153,53 +203,6 @@
         webui.addRequiredMark($hetongHao);
         webui.addRequiredMark($day);
 
-        var setPathAndCabinetNoVal = function () {
-            var company = $companyName.val();
-            var year = $year.val();
-            var month = $month.val();
-            var hetongHao = $hetongHao.val();
-            if (company.length == 0) {
-                $path.val('');
-                $cabinetNo.val('');
-                $archiveId.val('');
-                return;
-            }
-            if (year.length == 0) {
-                $path.val('');
-                $cabinetNo.val('');
-                $archiveId.val('');
-                return;
-            }
-            if (month.length == 0) {
-                $path.val('');
-                $cabinetNo.val('');
-                $archiveId.val('');
-                return;
-            }
-            if (hetongHao.length == 0) {
-                $path.val('');
-                $cabinetNo.val('');
-                $archiveId.val('');
-                return;
-            }
-            var remark = company + '\\' + year + '\\' + month + '\\' + hetongHao;
-            $.post("../Shared/Controller.aspx?action=GetPathAndCabinetNo", { remark: remark, d: $.now() }, function (model) {
-                if (model.result != 0) {
-                    webui.alert('出现错误,请联系管理员。');
-                }
-                else {
-                    if (model.data != null) {
-                        $path.val(model.data.Path);
-                        $cabinetNo.val(model.data.CabinetNo);
-                        $archiveId.val(model.data.Id);
-                    } else {
-                        $path.val('');
-                        $cabinetNo.val('');
-                        $archiveId.val('');
-                    }
-                }
-            });
-        };
         $companyName.change(function () {
             setPathAndCabinetNoVal();
         });

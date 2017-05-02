@@ -64,7 +64,7 @@ namespace BiostimeProcess.Pages.Baogao
                 return;
             }
             Master.TitleText = "合生元财务档案借阅";
-            Master.SubTitleText = "财务报告档案借阅信息";
+            Master.SubTitleText = "审计报告档案借阅信息";
             Master.ProcessNameText = "借阅审批流程";
             try
             {

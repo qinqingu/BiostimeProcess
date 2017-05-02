@@ -64,11 +64,6 @@ namespace BiostimeProcess.UserControls
             var jsSerializer = new JavaScriptSerializer();
             string json = jsSerializer.Serialize(list);
             ReportNames.Value = json;
-            //BaogaoMingcheng.Items.Clear();
-            //BaogaoMingcheng.DataSource = list;
-            //BaogaoMingcheng.DataTextField = "Name";
-            //BaogaoMingcheng.DataBind();
-            //BaogaoMingcheng.Items.Insert(0, new ListItem("选择", string.Empty));
         }
 
     }

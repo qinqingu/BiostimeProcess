@@ -48,10 +48,12 @@ namespace BiostimeProcess.Pages.Payment
                 if (EDoc2Helper.IsUserInUserGroup(EDoc2Helper.GetCurrentUserId(), WebConfig.ManagerGroup))
                 {
                     taskVariation.Add("fenzhizouxiang", "是");
+                    Edoc2LogHelper.WriteLog("fenzhizouxiang=是");
                 }
                 else
                 {
                     taskVariation.Add("fenzhizouxiang", "否");
+                    Edoc2LogHelper.WriteLog("fenzhizouxiang=否");
                 }
                 StartFa(ProcessId, incidentId, taskVariation);
             }

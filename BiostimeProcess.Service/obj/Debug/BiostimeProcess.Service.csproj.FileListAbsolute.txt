@@ -12,4 +12,3 @@ E:\项目开发\BiostimeProcess\BiostimeProcess.Service\bin\Debug\Newtonsoft.Jso
 E:\项目开发\BiostimeProcess\BiostimeProcess.Service\bin\Debug\Newtonsoft.Json.pdb
 E:\项目开发\BiostimeProcess\BiostimeProcess.Service\obj\Debug\BiostimeProcess.Service.dll
 E:\项目开发\BiostimeProcess\BiostimeProcess.Service\obj\Debug\BiostimeProcess.Service.pdb
-E:\项目开发\BiostimeProcess\BiostimeProcess.Service\obj\Debug\BiostimeProcess.Service.csprojResolveAssemblyReference.cache
